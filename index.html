@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenshi Hinanawi Theme</title>
+    <title>Lieba Natur Brilian</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -87,15 +87,15 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-5deg);
-            width: 511px; height: 647px;
+            width: 700px; height: 700px;
             /* Placeholder Image */
-            background-image: url('https://placehold.co/400x600/png?text=Tenshi+Image'); 
+            background-image: url('/assets/character_full1_67.webp');
+            background-repeat: no-repeat; 
             background-size: cover;
             background-position: center;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border: 5px solid rgba(255,255,255,0.2);
-            z-index: 1;
+            border: 0px solid rgba(255,255,255,0.2);
+            z-index: 3;
         }
 
         /* Chat (Sesuai kodemu: 402px) */
@@ -110,8 +110,8 @@
 
         /* Info (Sesuai kodemu: 352px) */
         .info-widget {
-            position: absolute; bottom: 10%; left: 15%;
-            width: 352px; font-size: 13px; line-height: 1.5;
+            position: absolute; bottom: 10%; left: 5%;
+            width: 472px; font-size: 13px; line-height: 1.5;
         }
         .mini-avatar { float: left; width: 40px; height: 40px; background: #333; border-radius: 50%; margin-right: 10px; border: 2px solid #badc58; }
 
@@ -165,15 +165,15 @@
         <div class="widget chat-widget">
             <div class="avatar-circle"></div> 
             <div class="chat-content">
-                <h4 data-key="char_name">Tenshi Hinanawi</h4>
-                <p data-key="chat_msg">I know, if you've nothing to do how about killing some time with me?</p>
+                <h4 data-key="char_name">Lieba Natur Brilian</h4>
+                <p data-key="chat_msg">"Either you run the day, or the day runs you."</p>
             </div>
         </div>
 
         <div class="widget info-widget">
             <div class="mini-avatar"></div>
             <p data-key="info_text">
-                is the main antagonist of Scarlet Weather Rhapsody. She's the "Eldest Daughter" of the Hinanawi clan.
+                My name is Lieba Natur Brilian, and people also call me Natur. I am a graphic designer, video editor, and contributor translator for various services, applications, and software. People also know me as gingalibadeidara on other websites such as Alphacoders.
             </p>
         </div>
 
@@ -184,23 +184,23 @@
     const translations = {
         en: {
             nav_home: "Home",
-            char_name: "Tenshi Hinanawi",
-            chat_msg: "I know, if you've nothing to do how about killing some time with me?",
-            info_text: "is the main antagonist of Scarlet Weather Rhapsody. She's the 'Eldest Daughter' of the Hinanawi clan.",
+            char_name: "Lieba Natur Brilian",
+            chat_msg: "Either you run the day, or the day runs you.",
+            info_text: "My name is Lieba Natur Brilian, and people also call me Natur. I am a graphic designer, video editor, and contributor translator for various services, applications, and software. People also know me as gingalibadeidara on other websites such as Alphacoders.",
             locale: "en-US"
         },
         id: {
             nav_home: "Beranda",
-            char_name: "Tenshi Hinanawi",
-            chat_msg: "Aku tahu, jika kamu sedang bosan, bagaimana kalau menghabiskan waktu bersamaku?",
-            info_text: "adalah antagonis utama dalam Scarlet Weather Rhapsody. Dia adalah 'Putri Tertua' dari klan Hinanawi.",
+            char_name: "Lieba Natur Brilian",
+            chat_msg: "Baiklah, kamu yang mengendalikan hari ini, atau hari ini yang mengendalikanmu.",
+            info_text: "Aku Lieba Natur Brilian, dan orang-orang juga memanggilku dengan nama Natur. Aku seorang desainer grafis, editor video, dan penerjemah kontributor untuk berbagai layanan, aplikasi, dan perangkat lunak. Orang-orang juga mengenalku sebagai gingalibadeidara di situs web lain seperti Alphacoders.",
             locale: "id-ID"
         },
         ja: {
             nav_home: "ホーム",
-            char_name: "比那名居 天子",
-            chat_msg: "わかってるわ、暇なら私と時間をつぶさない？",
-            info_text: "は『東方緋想天』のメインアンタゴニストであり、比那名居一族の「総領娘」である。",
+            char_name: "なつるぶりりあんと りば",
+            chat_msg: "「一日は君が支配するものであって、一日に支配されるものではなくて」",
+            info_text: "私の名前はリーバ・ナチュール・ブリリアンです。ナチュールとも呼ばれています。グラフィックデザイナー、ビデオ編集者、そして様々なサービス、アプリケーション、ソフトウェアの翻訳者として活動しています。アルファコーダーズなどの他のウェブサイトでは、gingalibadeidara としても知られています。",
             locale: "ja-JP"
         }
     };
