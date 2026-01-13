@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenshi Hinanawi Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. SETUP GLOBAL --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #6c5ce7;
+            background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
+                              radial-gradient(#8c7ae6 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            /* Update Font: Tambah Noto Sans JP */
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .main-stage {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+        }
+
+        /* --- 2. STYLE WIDGET --- */
+        .widget {
+            background: rgba(45, 52, 117, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #a4b0be;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        /* Widget Bahasa (Language Switcher) - BARU */
+        .lang-switcher {
+            position: absolute;
+            top: 0; right: 0; /* Pojok Kanan Atas */
+            display: flex; gap: 10px;
+            font-weight: bold; font-size: 14px;
+        }
+        .lang-btn {
+            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background-color: #8c7ae6; color: white;
+        }
+
+        /* --- 3. POSISI DESKTOP --- */
+        .main-stage { display: block; }
+
+        /* Navbar */
+        .top-nav {
+            position: absolute; top: 0; left: 50%; 
+            transform: translateX(-50%);
+            display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
+            width: fit-content; align-items: center;
+        }
+        .top-nav i:hover { color: white; cursor: pointer; }
+        .active-icon { color: white; margin-right: 5px; }
+
+        /* Jam (Sesuai kodemu: 302px) */
+        .clock-widget { position: absolute; top: 15%; left: 5%; width: 302px; }
+        .time { font-size: 48px; font-weight: 900; color: #a29bfe; display: block; line-height: 1; margin-bottom: 5px; }
+        .date { font-size: 16px; color: #dfe6e9; }
+
+        /* Karakter (Sesuai kodemu: 511x647) */
+        .character-card {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            width: 511px; height: 647px;
+            /* Placeholder Image */
+            background-image: url('https://placehold.co/400x600/png?text=Tenshi+Image'); 
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 5px solid rgba(255,255,255,0.2);
+            z-index: 1;
+        }
+
+        /* Chat (Sesuai kodemu: 402px) */
+        .chat-widget {
+            position: absolute; top: 35%; right: 5%;
+            max-width: 402px; display: flex; align-items: center; gap: 15px;
+            border-radius: 50px;
+        }
+        .avatar-circle { width: 50px; height: 50px; background: #333; border-radius: 50%; flex-shrink: 0; border: 2px solid #a29bfe; }
+        .chat-content h4 { margin: 0; color: #a29bfe; font-size: 16px; }
+        .chat-content p { margin: 0; font-size: 13px; color: #fff; line-height: 1.3; }
+
+        /* Info (Sesuai kodemu: 352px) */
+        .info-widget {
+            position: absolute; bottom: 10%; left: 15%;
+            width: 352px; font-size: 13px; line-height: 1.5;
+        }
+        .mini-avatar { float: left; width: 40px; height: 40px; background: #333; border-radius: 50%; margin-right: 10px; border: 2px solid #badc58; }
+
+        /* --- 4. RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            body { align-items: flex-start; padding: 20px 0; height: auto; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-bottom: 50px; }
+            .widget, .character-card {
+                position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+                transform: none !important; width: 90%; max-width: 100%; margin: 0 auto;
+            }
+            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; order: 0; margin-bottom: 10px; }
+            .top-nav { position: relative; transform: none; left: auto; width: 90%; justify-content: space-between; font-size: 18px; padding: 10px 20px; order: 1; }
+            .character-card { order: 2; height: 400px; }
+            .clock-widget { order: 3; text-align: center; }
+            .clock-widget div { justify-content: center !important; gap: 10px; }
+            .chat-widget { order: 4; border-radius: 20px; }
+            .info-widget { order: 5; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-stage">
+        
+        <div class="widget top-nav">
+            <div><i class="fas fa-home active-icon"></i> <span data-key="nav_home">Home</span></div>
+            <i class="far fa-user"></i>
+            <i class="far fa-file-alt"></i>
+            <i class="fas fa-edit"></i>
+            <i class="far fa-images"></i>
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <div class="widget lang-switcher">
+            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+        </div>
+
+        <div class="widget clock-widget">
+            <span class="time">00:00</span>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="date">Loading...</span>
+                <i class="fas fa-cloud-moon" style="font-size: 24px; color: #a29bfe;"></i>
+            </div>
+        </div>
+
+        <div class="character-card"></div>
+
+        <div class="widget chat-widget">
+            <div class="avatar-circle"></div> 
+            <div class="chat-content">
+                <h4 data-key="char_name">Tenshi Hinanawi</h4>
+                <p data-key="chat_msg">I know, if you've nothing to do how about killing some time with me?</p>
+            </div>
+        </div>
+
+        <div class="widget info-widget">
+            <div class="mini-avatar"></div>
+            <p data-key="info_text">
+                is the main antagonist of Scarlet Weather Rhapsody. She's the "Eldest Daughter" of the Hinanawi clan.
+            </p>
+        </div>
+
+    </div>
+
+<script>
+    // --- 1. KAMUS BAHASA ---
+    const translations = {
+        en: {
+            nav_home: "Home",
+            char_name: "Tenshi Hinanawi",
+            chat_msg: "I know, if you've nothing to do how about killing some time with me?",
+            info_text: "is the main antagonist of Scarlet Weather Rhapsody. She's the 'Eldest Daughter' of the Hinanawi clan.",
+            locale: "en-US"
+        },
+        id: {
+            nav_home: "Beranda",
+            char_name: "Tenshi Hinanawi",
+            chat_msg: "Aku tahu, jika kamu sedang bosan, bagaimana kalau menghabiskan waktu bersamaku?",
+            info_text: "adalah antagonis utama dalam Scarlet Weather Rhapsody. Dia adalah 'Putri Tertua' dari klan Hinanawi.",
+            locale: "id-ID"
+        },
+        ja: {
+            nav_home: "ホーム",
+            char_name: "比那名居 天子",
+            chat_msg: "わかってるわ、暇なら私と時間をつぶさない？",
+            info_text: "は『東方緋想天』のメインアンタゴニストであり、比那名居一族の「総領娘」である。",
+            locale: "ja-JP"
+        }
+    };
+
+    let currentLang = 'en';
+
+    // --- 2. FUNGSI GANTI BAHASA ---
+    function setLanguage(lang) {
+        currentLang = lang;
+        const data = translations[lang];
+
+        // Ubah teks biasa
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if(data[key]) el.innerText = data[key];
+        });
+
+        // Ubah status tombol aktif
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
+                btn.classList.add('active');
+            }
+        });
+
+        updateClock(); // Update tanggal biar formatnya ikut berubah
+    }
+
+    // --- 3. JAM & TANGGAL ---
+    function updateClock() {
+        const now = new Date();
+        
+        // Jam
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12; hours = hours ? hours : 12; 
+        document.querySelector('.time').innerText = `${hours}:${minutes} ${ampm}`;
+
+        // Tanggal (Ikut Bahasa)
+        const locale = translations[currentLang].locale;
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        document.querySelector('.date').innerText = now.toLocaleDateString(locale, options);
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+</body>
+</html>
