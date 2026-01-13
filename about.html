@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Lieba Natur Brilian</title>
+    <title>About Me - Lieba Natur Brilian</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -41,58 +41,60 @@
             z-index: 10;
         }
 
-        /* --- 3. NAVIGASI & BAHASA --- */
+        /* --- 3. NAVIGASI (Absolute Top) --- */
         .top-nav {
-            position: absolute; top: 0; left: 50%; 
+            position: absolute; top: 0px; left: 50%; 
             transform: translateX(-50%);
             display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
             width: fit-content; align-items: center;
+            z-index: 50;
         }
         .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
         .active-icon { color: white; margin-right: 5px; }
 
         .lang-switcher {
-            position: absolute; top: 0; right: 0;
+            position: absolute; top: 0px; right: 0%;
             display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+            z-index: 50;
         }
-        .lang-btn {
-            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
-        }
+        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
         .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
 
-        /* --- 4. LAYOUT ABOUT (SCROLLABLE) --- */
+        /* --- 4. LAYOUT ABOUT (FIX TENGAH) --- */
         .about-container {
+            /* INI KUNCINYA: Posisi Absolute di tengah layar */
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%; 
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 1190px; /* Lebar diperbesar sedikit */
-            height: 600px; /* Tinggi diperbesar sedikit */
+            
+            width: 1190px; /* Lebar Fix Desktop */
+            height: 65vh; /* Tinggi Fix Desktop */
+
             display: flex;
-            align-items: flex-start; /* Mulai dari atas */
+            align-items: stretch;
             gap: 40px;
             padding: 40px;
         }
 
         .profile-img {
-            width: 300px; height: 100%; /* Full height container */
+            width: 300px; 
+            height: 100%;
             object-fit: cover;
             border-radius: 20px;
             border: 5px solid rgba(255,255,255,0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            flex-shrink: 0; /* Gambar jangan mengecil */
+            flex-shrink: 0; 
         }
 
         .about-content {
-            flex: 1;
-            height: 100%; /* Full height */
+            flex: 1; 
+            display: flex; flex-direction: column;
+            overflow: hidden; 
             color: white;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden; /* Sembunyikan scrollbar induk */
         }
 
         .about-header {
-            flex-shrink: 0; /* Header jangan ikut discroll */
             margin-bottom: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             padding-bottom: 10px;
@@ -101,39 +103,48 @@
         .about-header h1 { font-size: 32px; margin: 0 0 5px 0; color: #a29bfe; }
         .role { font-size: 16px; color: #dfe6e9; font-weight: bold; margin: 0; }
 
-        /* AREA TEKS YANG BISA DISCROLL */
         .bio-text {
-            overflow-y: auto; /* Scroll vertikal aktif */
-            padding-right: 15px; /* Jarak untuk scrollbar */
-            font-size: 14px;
-            line-height: 1.6;
-            color: #dcdde1;
+            overflow-y: auto; 
+            padding-right: 15px; 
+            font-size: 14px; line-height: 1.6; color: #dcdde1;
+            flex-grow: 1; 
         }
 
-        /* Styling Scrollbar Keren */
         .bio-text::-webkit-scrollbar { width: 8px; }
         .bio-text::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
         .bio-text::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
-        .bio-text::-webkit-scrollbar-thumb:hover { background: #a29bfe; }
 
-        /* Judul Section dalam Bio */
         .bio-text h3 { color: #a29bfe; margin-top: 20px; margin-bottom: 5px; border-left: 3px solid #badc58; padding-left: 10px; }
         .bio-text p { margin-top: 5px; margin-bottom: 15px; }
 
-        /* Responsive Mobile */
+
+        /* --- 5. DETEKSI RESOLUSI (HANYA UNTUK HP & TABLET) --- */
+        
+        /* Tablet Landscape / Laptop Kecil Lebarnya */
+        @media (max-width: 1100px) {
+            .about-container { width: 95%; padding: 30px; gap: 20px; }
+            .profile-img { width: 250px; }
+        }
+
+        /* HP & Tablet Portrait (Mode Tumpuk) */
         @media (max-width: 768px) {
-            body { height: auto; padding: 20px 0; display: block; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-            .widget, .about-container {
-                position: relative !important; top: auto !important; left: auto !important; transform: none !important;
-                width: 90%; margin: 0 auto;
+            body { overflow-y: auto; height: auto; } /* Aktifkan scroll window */
+            .main-stage { height: auto; padding-bottom: 50px; overflow: visible; }
+
+            .top-nav { position: relative; top: auto; left: auto; transform: none; width: 90%; margin: 20px auto; justify-content: space-between; }
+            .lang-switcher { position: relative; top: auto; right: auto; width: 90%; margin: 0 auto 20px auto; justify-content: flex-end; }
+            
+            .about-container {
+                position: relative; /* Lepas dari tengah */
+                top: auto; left: auto; transform: none;
+                margin: 0 auto;
+                width: 90%;
+                height: auto;
+                flex-direction: column; 
             }
-            .about-container { flex-direction: column; height: auto; max-height: 800px; }
-            .profile-img { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 20px auto; }
-            .about-content { width: 100%; text-align: left; }
-            .top-nav { position: relative; width: 90%; justify-content: space-between; order: 1; }
-            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; order: 0; margin-bottom: 10px; }
-            .about-container { order: 2; }
+            
+            .profile-img { width: 100%; height: 300px; margin-bottom: 20px; }
+            .bio-text { max-height: 400px; } 
         }
     </style>
 </head>    
@@ -177,7 +188,6 @@
     </div>
 
 <script>
-    // --- DATA BAHASA (BIO LENGKAP) ---
     const translations = {
         en: {
             nav_about: "About",
@@ -186,21 +196,15 @@
             bio_full: `
                 <p>Hello and Welcome to my site! I’m Liba Natur Brilian and also known as Natur or gingalibadeidara, a video editor and graphics designer with a deep passion for technology, art, music and content creation.</p>
                 <p>Here, I share my recent projects like design, video editing, vectors, and blogging. I hope this platform can be a space to share inspiration, ideas, and engaging discussions with you.</p>
-                
                 <h3>Interest</h3>
-                
                 <h3>Technologies</h3>
                 <p>Already interested in technology since elementary school, initially because of the internet cafe era at that time. At first, I only knew the games that came with the operating system, then in 2007 I got to know the internet and others.</p>
-                
                 <h3>Music</h3>
                 <p>At first, it was because my father himself almost every Sunday morning played songs through a VCD player and cassette tape. At first, he was only interested in the genre of old western songs, then Indonesian songs, then to Kpop because of his junior high school friends at that time (yes, you know Super Junior and SNSD) until finally to JPop songs until now. Oh yes i also like classical music, Doujin music like Touhou etc.</p>
-                
                 <h3>Anime</h3>
                 <p>It started with anime that aired on Indonesian TV stations. The first anime I watched was Naruto, and then in 2012 I started to get interested in Little Busters (yes, this is also one of my favorite anime), and finally I continued until now, even though I rarely watch it anymore. And progress anime i watch now you can check my Anilist.</p>
-                
                 <h3>Game & Visual Novel</h3>
                 <p>Well, for this game and visual novel, I was initially curious, starting from hearing the song nightcore (what sped calls it now), and curious because the artwork used in the video was sourced from fan art, anime or from other sources. It turned out that it came from Visual Novel & because from here I started to be interested in playing Visual Novel. At that time, the Visual Novel that was being hotly discussed was Koi Kakeru Shin Ai Kanojo. As for the game itself, it started because of my school friend who played the game Bully Scholarship Edition, and the first mobile game I played was THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS or known as deresute.</p>
-                
                 <h3>Translation</h3>
                 <p>To be honest, I first became interested in the world of translation when I learned to make karaoke effects and subtitles. In 2016 I started to dive into the world of translation, even though this was not my major at school. At first it was just to fill my free time, because of my interest in language lessons, both Indonesian and English. And this must be developed further, especially since I want to be able to speak German, Japanese, and Mandarin.</p>
             `
@@ -212,21 +216,15 @@
             bio_full: `
                 <p>Halo dan Selamat Datang di situs saya! Saya Liba Natur Brilian, juga dikenal sebagai Natur atau gingalibadeidara, seorang editor video dan desainer grafis dengan hasrat mendalam terhadap teknologi, seni, musik, dan pembuatan konten.</p>
                 <p>Di sini, saya membagikan proyek terbaru saya seperti desain, editing video, vektor, dan blog. Saya berharap platform ini dapat menjadi ruang untuk berbagi inspirasi, ide, dan diskusi menarik dengan Anda.</p>
-                
                 <h3>Minat</h3>
-                
                 <h3>Teknologi</h3>
                 <p>Sudah tertarik dengan teknologi sejak SD, awalnya karena era warnet saat itu. Mulanya saya hanya tahu game bawaan sistem operasi, lalu pada tahun 2007 saya mulai mengenal internet dan lainnya.</p>
-                
                 <h3>Musik</h3>
                 <p>Awalnya karena ayah saya hampir setiap Minggu pagi memutar lagu lewat VCD player dan kaset pita. Mulanya beliau hanya tertarik pada genre lagu barat lawas, lalu lagu Indonesia, kemudian Kpop karena teman SMP-nya saat itu (ya, Super Junior dan SNSD) hingga akhirnya ke lagu JPop sampai sekarang. Oh ya, saya juga suka musik klasik, musik Doujin seperti Touhou, dll.</p>
-                
                 <h3>Anime</h3>
                 <p>Berawal dari anime yang tayang di stasiun TV Indonesia. Anime pertama yang saya tonton adalah Naruto, lalu pada 2012 saya mulai tertarik dengan Little Busters (ya, ini juga salah satu anime favorit saya), dan akhirnya berlanjut sampai sekarang, meskipun saya sudah jarang menontonnya. Progres anime yang saya tonton bisa dicek di Anilist saya.</p>
-                
                 <h3>Game & Visual Novel</h3>
                 <p>Nah, untuk game dan visual novel ini awalnya saya penasaran, bermula dari mendengar lagu nightcore, dan penasaran karena artwork yang digunakan dalam video bersumber dari fan art, anime atau sumber lain. Ternyata itu berasal dari Visual Novel, dan dari sinilah saya mulai tertarik memainkannya. Saat itu, Visual Novel yang sedang ramai dibicarakan adalah Koi Kakeru Shin Ai Kanojo. Untuk game sendiri, bermula karena teman sekolah saya yang main game Bully Scholarship Edition, dan game mobile pertama yang saya mainkan adalah THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS atau dikenal sebagai deresute.</p>
-                
                 <h3>Terjemahan</h3>
                 <p>Jujur saja, saya pertama kali tertarik pada dunia terjemahan saat belajar membuat efek karaoke dan subtitle. Pada 2016 saya mulai terjun ke dunia terjemahan, meskipun ini bukan jurusan sekolah saya. Awalnya hanya untuk mengisi waktu luang, karena ketertarikan saya pada pelajaran bahasa, baik Bahasa Indonesia maupun Inggris. Dan ini harus dikembangkan lebih lanjut, apalagi saya ingin bisa berbahasa Jerman, Jepang, dan Mandarin.</p>
             `
@@ -238,44 +236,31 @@
             bio_full: `
                 <p>こんにちは、私のサイトへようこそ！リーバ・ナトゥール・ブリリアン（Natur、またはgingalibadeidara）です。テクノロジー、アート、音楽、コンテンツ制作に情熱を持つ動画編集者兼グラフィックデザイナーです。</p>
                 <p>ここでは、デザイン、動画編集、ベクターアート、ブログなどの最近のプロジェクトを共有しています。この場所がインスピレーションやアイデアを共有できる場になれば嬉しいです。</p>
-                
                 <h3>興味・関心</h3>
-                
                 <h3>テクノロジー</h3>
                 <p>小学生の頃、当時のネットカフェブームがきっかけでテクノロジーに興味を持ちました。最初はOS付属のゲームしか知りませんでしたが、2007年にインターネットなどを知るようになりました。</p>
-                
                 <h3>音楽</h3>
                 <p>きっかけは父がほぼ毎週日曜の朝にVCDプレーヤーやカセットテープで曲を流していたことです。最初は古い洋楽、次にインドネシアの曲、そして当時の中学の友人の影響でK-POP（Super JuniorやSNSDなど）、最終的にJ-POPに至り現在も続いています。クラシック音楽や東方などの同人音楽も好きです。</p>
-                
                 <h3>アニメ</h3>
                 <p>インドネシアのテレビで放送されていたアニメが始まりでした。最初に見たのはナルトで、2012年に『リトルバスターズ！』（私のお気に入りの一つです）に興味を持ち、今まで続いていますが、最近はあまり見なくなりました。視聴履歴はAnilistで確認できます。</p>
-                
                 <h3>ゲーム & ビジュアルノベル</h3>
                 <p>これらへの興味は、Nightcoreの曲を聞いたことから始まりました。動画に使われているイラストの出典が気になり、それがビジュアルノベルだと知って興味を持ち始めました。当時話題だったのは『恋×シンアイ彼女』でした。ゲーム自体は、学校の友人が『Bully Scholarship Edition』をプレイしていたのがきっかけで、最初のモバイルゲームはデレステ（THE IDOLM@STER: CINDERELLA GIRLS STARLIGHT STAGE）でした。</p>
-                
                 <h3>翻訳</h3>
                 <p>正直なところ、カラオケ字幕エフェクトの作り方を学んだ時に翻訳の世界に興味を持ちました。2016年に翻訳の世界に飛び込みましたが、学校の専攻ではありませんでした。最初は暇つぶしと語学（インドネシア語と英語）への興味からでしたが、ドイツ語、日本語、中国語も話せるようになりたいので、さらに発展させていきたいです。</p>
             `
         }
     };
 
-    // Fungsi Ganti Bahasa (Update HTML juga)
     function setLanguage(lang) {
         const data = translations[lang];
-        
-        // Update Teks Biasa
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(data[key]) el.innerText = data[key];
         });
-
-        // Update HTML (untuk Bio yang ada paragrafnya)
         document.querySelectorAll('[data-key-html]').forEach(el => {
             const key = el.getAttribute('data-key-html');
             if(data[key]) el.innerHTML = data[key];
         });
-        
-        // Update Tombol Aktif
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
             if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
@@ -284,7 +269,6 @@
         });
     }
 
-    // --- JALANKAN SAAT LOAD ---
     setLanguage('en'); 
 </script>
 </body>
