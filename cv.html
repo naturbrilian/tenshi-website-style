@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Lieba Natur Brilian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. SETUP GLOBAL --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: #6c5ce7;
+            background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
+                              radial-gradient(#8c7ae6 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            color: white; overflow-x: hidden;
+        }
+
+        .main-stage {
+            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+        }
+
+        /* --- 2. WIDGET STYLE (Wajib ada biar kaca) --- */
+        .widget {
+            background: rgba(45, 52, 117, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #a4b0be;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 10;
+        }
+
+        /* --- 3. NAVIGASI & BAHASA --- */
+        .top-nav {
+            position: absolute; top: 0; left: 50%; 
+            transform: translateX(-50%);
+            display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
+            width: fit-content; align-items: center;
+        }
+        .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
+        .active-icon { color: white; margin-right: 5px; }
+
+        .lang-switcher {
+            position: absolute; top: 0; right: 0;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+        }
+        .lang-btn {
+            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
+
+        /* --- 4. LAYOUT KHUSUS CV --- */
+        .cv-container {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1190px; /* Lebih lebar untuk CV */
+            height: 65vh;
+            display: grid;
+            grid-template-columns: 300px 1fr; /* Kiri 300px, Kanan sisanya */
+            gap: 0; /* Gap diurus padding */
+            padding: 0;
+            overflow: hidden; /* Biar rounded corner tetap rapi */
+        }
+
+        /* Sidebar Kiri (Kontak & Skill) */
+        .cv-sidebar {
+            background: rgba(0, 0, 0, 0.2); /* Sedikit lebih gelap */
+            padding: 30px;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Konten Kanan (Pengalaman & Edukasi) */
+        .cv-main {
+            padding: 30px 40px;
+            overflow-y: auto;
+        }
+
+        /* --- Scrollbar Custom --- */
+        .cv-sidebar::-webkit-scrollbar, .cv-main::-webkit-scrollbar { width: 6px; }
+        .cv-sidebar::-webkit-scrollbar-thumb, .cv-main::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
+
+        /* --- Typography CV --- */
+        h2 { font-size: 24px; color: #a29bfe; margin-bottom: 5px; margin-top: 0; }
+        h3 { font-size: 18px; color: #fff; margin-bottom: 15px; border-bottom: 2px solid #badc58; padding-bottom: 5px; display: inline-block; }
+        h4 { font-size: 16px; color: #dfe6e9; margin: 15px 0 5px 0; }
+        
+        .sub-title { font-size: 14px; color: #badc58; font-weight: bold; margin-bottom: 5px; }
+        p, li { font-size: 13px; line-height: 1.6; color: #dcdde1; margin-bottom: 10px; }
+        ul { padding-left: 20px; margin-top: 5px; }
+
+        /* Kontak List */
+        .contact-list { list-style: none; padding: 0; margin-bottom: 30px; }
+        .contact-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+        .contact-list i { color: #a29bfe; width: 20px; text-align: center; }
+
+        /* Skill Bar */
+        .skill-item { margin-bottom: 15px; }
+        .skill-name { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: #fff; }
+        .progress-bg { background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; overflow: hidden; }
+        .progress-bar { background: #badc58; height: 100%; border-radius: 10px; }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            body { height: auto; padding: 20px 0; display: block; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+            .widget, .cv-container {
+                position: relative !important; top: auto !important; left: auto !important; transform: none !important;
+                width: 90%; margin: 0 auto;
+            }
+            .cv-container { display: flex; flex-direction: column; height: auto; }
+            .cv-sidebar, .cv-main { overflow: visible; padding: 20px; border: none; }
+            .top-nav { position: relative; width: 90%; justify-content: space-between; order: 1; }
+            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; order: 0; margin-bottom: 10px; }
+            .cv-container { order: 2; }
+        }
+    </style>
+</head>    
+<body>
+    <div class="main-stage">
+        
+        <div class="widget top-nav">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="about.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-user"></i>
+            </a>
+            <div><i class="far fa-file-alt active-icon"></i> <span data-key="nav_cv">CV</span></div>
+            <i class="fas fa-edit"></i>
+            <i class="far fa-images"></i>
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <div class="widget lang-switcher">
+            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+        </div>
+
+        <div class="widget cv-container">
+            
+            <div class="cv-sidebar">
+                <h3 data-key="sec_contact">Contact</h3>
+                <ul class="contact-list">
+                    <a href="tel:+6289686865736">
+                        <li><i class="fas fa-phone"></i> +6289686865736</li>
+                    </a>
+                    <a href="mailto:liba.natur.brilian@gmail.com">
+                        <li><i class="fas fa-envelope"></i> liba.natur.brilian@gmail.com</li>
+                    </a>
+                    <a href="https://linkedin.com/in/naturbrilian" target="_blank">
+                        <li><i class="fab fa-linkedin"></i> Liba Natur Brilian</li>
+                    </a>
+                    <li><i class="fas fa-map-marker-alt"></i> Kediri, Indonesia</li>
+                </ul>
+
+                <h3 data-key="sec_skill">Skill</h3>
+                
+                <div class="skill-item">
+                    <div class="skill-name"><span>Video Editing</span><span>90%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Graphics Design</span><span>90%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Localization (EN-ID)</span><span>80%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Blogging</span><span>60%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 60%;"></div></div>
+                </div>
+
+                <h3 data-key="sec_lang">Language</h3>
+                <div class="skill-item">
+                    <div class="skill-name"><span data-key="lang_id">Indonesian</span><span>100%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 100%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span data-key="lang_jv">Javanese</span><span>90%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span data-key="lang_en">English</span><span>50%</span></div>
+                    <div class="progress-bg"><div class="progress-bar" style="width: 50%;"></div></div>
+                </div>
+            </div>
+
+            <div class="cv-main">
+                <h2 data-key="cv_name">Lieba Natur Brilian</h2>
+                <div style="color: #badc58; margin-bottom: 20px;">Video Editor & Graphic Designer</div>
+                
+                <p data-key="cv_summary">
+                    My name is Liba Natur Brilian also known as naturbrilian and Gingalibadeidara for another project. I have experience on video editor, graphics design and social media admin at Kediri Televisi and The Java Post ID. Also a contributor at Yurasubs as Graphics Design Staff.
+                </p>
+
+                <h3 data-key="sec_exp" style="margin-top: 20px;">Experience</h3>
+
+                <h4 data-key="job1_title">Video Editor & Social Media Admin</h4>
+                <div class="sub-title">Kediri Televisi | 2017 – Present</div>
+                <p data-key="job1_desc">As a video editor for YouTube content, and also as a social media admin.</p>
+
+                <h4 data-key="job2_title">Video Editor & Website Admin</h4>
+                <div class="sub-title">The Java Post ID | 2023 – Present</div>
+                <p data-key="job2_desc">Working as Video Editor & Website Admin.</p>
+
+                <h4>Graphics Designer</h4>
+                <div class="sub-title">Yurasubs | 2021 – 2024</div>
+                <p data-key="job3_desc">Graphics Designer for unit group translation JP-ID Yuramedia, also as translator checker.</p>
+
+                <h4 data-key="job4_title">Social Media Graphics Designer</h4>
+                <div class="sub-title">Yuramedia | 2024 – Present</div>
+                <p data-key="job4_desc">Handling social media design and visual content.</p>
+
+                <h3 data-key="sec_edu" style="margin-top: 20px;">Education</h3>
+
+                <h4>CBM Academy</h4>
+                <div class="sub-title">2017 – 2018</div>
+                <p data-key="edu1_desc">Broadcasting, studying the institute and learning about video editing and broadcasting techniques.</p>
+
+                <h4>SMK TI PELITA NUSANTARA KEDIRI</h4>
+                <div class="sub-title">2014 – 2017</div>
+                <p data-key="edu_grad">Graduates of the 2016/2017 school year.</p>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    // --- DATA BAHASA (CV LENGKAP) ---
+    const translations = {
+        en: {
+            nav_cv: "CV",
+            sec_contact: "Contact",
+            sec_skill: "Skills",
+            sec_lang: "Languages",
+            sec_exp: "Experience",
+            sec_edu: "Education",
+            
+            lang_id: "Indonesian",
+            lang_jv: "Javanese",
+            lang_en: "English",
+
+            cv_name: "Lieba Natur Brilian",
+            cv_summary: "My name is Liba Natur Brilian also known as naturbrilian and Gingalibadeidara for another project. I have experience on video editor, graphics design and social media admin at Kediri Televisi and The Java Post ID. Also a contributor at Yurasubs as Graphics Design Staff.",
+            
+            job1_title: "Video Editor & Social Media Admin",
+            job1_desc: "As a video editor for YouTube content, and also as a social media admin.",
+            
+            job2_title: "Video Editor & Website Admin",
+            job2_desc: "Working as Video Editor & Website Admin.",
+            
+            job3_desc: "Graphics Designer for unit group translation JP-ID Yuramedia, also as translator checker.",
+            
+            job4_title: "Social Media Graphics Designer",
+            job4_desc: "Handling social media design and visual content.",
+            
+            edu1_desc: "Broadcasting, studying the institute and learning about video editing and broadcasting techniques.",
+            edu_grad: "Graduates of the 2016/2017 school year."
+        },
+        id: {
+            nav_cv: "CV",
+            sec_contact: "Kontak",
+            sec_skill: "Keahlian",
+            sec_lang: "Bahasa",
+            sec_exp: "Pengalaman",
+            sec_edu: "Pendidikan",
+            
+            lang_id: "Indonesia",
+            lang_jv: "Jawa",
+            lang_en: "Inggris",
+
+            cv_name: "Lieba Natur Brilian",
+            cv_summary: "Nama saya Liba Natur Brilian, juga dikenal sebagai naturbrilian dan Gingalibadeidara. Saya berpengalaman sebagai editor video, desain grafis, dan admin media sosial di Kediri Televisi dan The Java Post ID. Juga kontributor di Yurasubs sebagai Staf Desain Grafis.",
+            
+            job1_title: "Video Editor & Admin Sosmed",
+            job1_desc: "Sebagai editor video untuk konten YouTube, dan juga sebagai admin media sosial.",
+            
+            job2_title: "Video Editor & Admin Website",
+            job2_desc: "Bekerja sebagai Video Editor & Admin Website.",
+            
+            job3_desc: "Desainer Grafis untuk grup terjemahan JP-ID Yuramedia, juga sebagai pemeriksa terjemahan.",
+            
+            job4_title: "Desainer Grafis Media Sosial",
+            job4_desc: "Menangani desain media sosial dan konten visual.",
+            
+            edu1_desc: "Broadcasting, belajar di institut tentang teknik editing video dan penyiaran.",
+            edu_grad: "Lulusan tahun ajaran 2016/2017."
+        },
+        ja: {
+            nav_cv: "履歴書",
+            sec_contact: "連絡先",
+            sec_skill: "スキル",
+            sec_lang: "言語",
+            sec_exp: "職歴",
+            sec_edu: "学歴",
+            
+            lang_id: "インドネシア語",
+            lang_jv: "ジャワ語",
+            lang_en: "英語",
+
+            cv_name: "リーバ・ナトゥール",
+            cv_summary: "私の名前はリーバ・ナトゥール・ブリリアン（naturbrilian、またはGingalibadeidara）です。Kediri TelevisiとThe Java Post IDで動画編集、グラフィックデザイン、SNS管理の経験があります。Yurasubsではグラフィックデザインスタッフとして貢献しています。",
+            
+            job1_title: "動画編集者 & SNS管理者",
+            job1_desc: "YouTubeコンテンツの動画編集者、およびソーシャルメディア管理者として勤務。",
+            
+            job2_title: "動画編集者 & ウェブサイト管理者",
+            job2_desc: "動画編集者およびウェブサイト管理者として勤務。",
+            
+            job3_desc: "翻訳グループYuramedia（JP-ID）のグラフィックデザイナー、および翻訳チェッカー。",
+            
+            job4_title: "SNSグラフィックデザイナー",
+            job4_desc: "ソーシャルメディアのデザインとビジュアルコンテンツを担当。",
+            
+            edu1_desc: "放送学。研究所で学び、動画編集と放送技術について習得。",
+            edu_grad: "2016/2017年度卒業。"
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if(data[key]) el.innerText = data[key];
+        });
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    setLanguage('en'); 
+</script>
+</body>
+</html>
