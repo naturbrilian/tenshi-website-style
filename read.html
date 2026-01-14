@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading - Lieba Natur Brilian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* --- 1. SETUP GLOBAL (DARI SCRIPT KAMU) --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: #6c5ce7;
+            background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
+                              radial-gradient(#8c7ae6 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            color: white; overflow: hidden; /* Scroll diurus di dalam widget */
+        }
+
+        .main-stage {
+            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+        }
+
+        /* --- 2. WIDGET STYLE --- */
+        .widget {
+            background: rgba(45, 52, 117, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #a4b0be;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 10;
+        }
+
+        /* --- 3. NAVIGASI (NEMPEL ATAS) --- */
+        .top-nav {
+            position: absolute; top: 0; left: 50%; 
+            transform: translateX(-50%);
+            display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
+            width: fit-content; align-items: center;
+        }
+        .top-nav a { color: #8c7ae6; transition: 0.3s; text-decoration: none; }
+        .top-nav a:hover, .top-nav i:hover { color: white; cursor: pointer; }
+        .active-icon { color: white; margin-right: 5px; }
+
+        .lang-switcher {
+            position: absolute; top: 0; right: 0;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+        }
+        .lang-btn {
+            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
+
+        /* --- 4. CONTAINER ARTIKEL (GAYA CV/BLOG) --- */
+        .article-container {
+            position: absolute;
+            top: 55%; left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 100%; 
+            height: 75vh;
+            
+            display: flex; flex-direction: column;
+            padding: 40px;
+            overflow-y: auto; /* Scroll konten artikel */
+        }
+
+        /* Scrollbar Halus */
+        .article-container::-webkit-scrollbar { width: 8px; }
+        .article-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .article-container::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
+
+        /* Style Konten Markdown */
+        #markdown-content { color: #dfe6e9; line-height: 1.8; margin-top: 20px; }
+        #markdown-content h1 { font-size: 2.2em; color: #a29bfe; border-bottom: 2px solid #8c7ae6; padding-bottom: 10px; margin-top: 0; font-weight: 900; }
+        #markdown-content h2, #markdown-content h3 { color: #a29bfe; margin-top: 30px; }
+        #markdown-content p { font-size: 1.1em; margin-bottom: 20px; }
+        #markdown-content img { max-width: 100%; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        #markdown-content a { color: #8c7ae6; text-decoration: none; border-bottom: 1px dashed #8c7ae6; }
+        #markdown-content a:hover { color: white; border-bottom: 1px solid white; }
+        #markdown-content code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 5px; color: #fab1a0; font-family: monospace; }
+        #markdown-content pre { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; overflow-x: auto; margin-bottom: 20px; }
+        #markdown-content pre code { background: transparent; padding: 0; color: inherit; }
+        #markdown-content blockquote { border-left: 5px solid #8c7ae6; padding: 10px 20px; margin: 20px 0; background: rgba(255,255,255,0.05); font-style: italic; border-radius: 0 10px 10px 0; }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 5px; 
+            text-decoration: none; color: #8c7ae6; font-weight: bold; font-size: 14px; 
+            transition: 0.3s; width: fit-content;
+        }
+        .back-link:hover { color: white; transform: translateX(-5px); }
+
+        /* Responsif HP */
+        @media (max-width: 768px) {
+            body { overflow-y: auto; padding: 80px 0 50px 0; display: block; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; }
+            
+            .top-nav { position: relative; width: 90%; justify-content: space-between; top: auto; left: auto; transform: none; margin-bottom: 10px; }
+            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; top: auto; right: auto; margin-bottom: 20px; }
+            
+            .article-container { 
+                position: relative; top: auto; left: auto; transform: none; 
+                width: 90%; height: auto; padding: 25px; 
+            }
+        }
+    </style>
+</head>    
+<body>
+    <div class="main-stage">
+        
+        <div class="widget top-nav">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="about.html"><i class="far fa-user"></i></a>
+            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
+            <a href="blog.html"><i class="fas fa-edit active-icon"></i></a> <a href="gallery.html"><i class="far fa-images"></i></a>
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <div class="widget lang-switcher">
+            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+        </div>
+
+        <div class="widget article-container">
+            <a href="blog.html" class="back-link">
+                <i class="fas fa-chevron-left"></i> <span data-key="btn_back">Back to Blog</span>
+            </a>
+
+            <div id="markdown-content">
+                <p style="margin-top: 20px; color: #a4b0be;" data-key="loading_msg">Loading article...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    // --- 1. DATA BAHASA UI ---
+    const uiData = {
+        en: { btn_back: "Back to Blog", loading_msg: "Loading article...", error_msg: "Article not found or not available in this language." },
+        id: { btn_back: "Kembali ke Blog", loading_msg: "Memuat artikel...", error_msg: "Artikel tidak ditemukan atau belum tersedia dalam bahasa ini." },
+        ja: { btn_back: "ブログに戻る", loading_msg: "記事を読み込んでいます...", error_msg: "記事が見つからないか、この言語では利用できません。" }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileName = urlParams.get('file');
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        
+        // Update UI
+        const texts = uiData[lang];
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[key]) el.innerText = texts[key];
+        });
+
+        // Update Tombol Aktif
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
+                btn.classList.add('active');
+            }
+        });
+
+        loadMarkdown(lang);
+    }
+
+    function loadMarkdown(lang) {
+        const contentDiv = document.getElementById('markdown-content');
+
+        if (!fileName) {
+            contentDiv.innerHTML = "<h2>Error: No file specified.</h2>";
+            return;
+        }
+
+        contentDiv.innerHTML = `<p style="margin-top: 20px; color: #a4b0be;">${uiData[lang].loading_msg}</p>`;
+
+        const filePath = `posts/${lang}/${fileName}`;
+
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) throw new Error("Not Found");
+                return response.text();
+            })
+            .then(text => {
+                // --- BAGIAN PENTING: HAPUS FRONTMATTER ---
+                // Regex ini akan menghapus semua teks di antara "---" pertama dan kedua
+                const cleanText = text.replace(/^---[\s\S]*?---\s*/, '');
+                
+                // Render teks yang sudah bersih
+                contentDiv.innerHTML = marked.parse(cleanText);
+                
+                // Update Judul Tab dari H1 pertama (opsional)
+                const titleMatch = cleanText.match(/^#\s+(.*)/m);
+                if (titleMatch) document.title = titleMatch[1] + " - Lieba Natur Brilian";
+            })
+            .catch(err => {
+                contentDiv.innerHTML = `
+                    <div style="text-align:center; padding: 40px; color: #fab1a0;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px;"></i>
+                        <h3>Oops!</h3>
+                        <p>${uiData[lang].error_msg}</p>
+                    </div>
+                `;
+            });
+    }
+
+    setLanguage('en');
+</script>
+</body>
+</html>

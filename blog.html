@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Lieba Natur Brilian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. SETUP GLOBAL --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: #6c5ce7;
+            background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
+                              radial-gradient(#8c7ae6 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            color: white; 
+            overflow: hidden; /* Scroll handle inside widget */
+        }
+
+        .main-stage {
+            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+        }
+
+        /* --- 2. WIDGET STYLE --- */
+        .widget {
+            background: rgba(45, 52, 117, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #a4b0be;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 10;
+        }
+
+        /* --- 3. NAVIGASI (NEMPEL ATAS) --- */
+        .top-nav {
+            position: absolute; top: 0; left: 50%; 
+            transform: translateX(-50%);
+            display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
+            width: fit-content; align-items: center;
+        }
+        .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
+        .active-icon { color: white; margin-right: 5px; }
+
+        .lang-switcher {
+            position: absolute; top: 0; right: 0;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+        }
+        .lang-btn {
+            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
+
+        /* --- 4. LAYOUT BLOG (GRID SYSTEM) --- */
+        .blog-container {
+            position: absolute;
+            top: 55%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 75vh;
+            
+            display: flex; flex-direction: column;
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .blog-header { margin-bottom: 20px; text-align: center; }
+        .blog-header h2 { margin: 0; font-size: 28px; color: #a29bfe; font-weight: 900; }
+
+        /* Scroll Area */
+        .blog-scroll-area {
+            overflow-y: auto; padding-right: 10px; height: 100%;
+        }
+        .blog-scroll-area::-webkit-scrollbar { width: 8px; }
+        .blog-scroll-area::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .blog-scroll-area::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
+
+        /* Grid 4 Kolom */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* --- 5. STYLE KARTU BLOG --- */
+        .blog-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+            display: flex; flex-direction: column;
+            overflow: hidden; height: 100%;
+        }
+        .blog-card:hover {
+            background: rgba(0, 0, 0, 0.4); transform: translateY(-5px);
+        }
+
+        .b-thumb {
+            width: 100%; height: 140px; object-fit: cover;
+            background-color: #2d3436; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .b-content {
+            padding: 15px; display: flex; flex-direction: column; flex-grow: 1;
+        }
+        .b-date { font-size: 11px; color: #badc58; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; }
+        
+        /* Judul Blog Fixed Height biar rapi */
+        .b-title { 
+            font-size: 15px; font-weight: bold; color: white; margin: 0 0 8px 0; line-height: 1.3;
+            min-height: 40px; /* Biar sejajar meski judul pendek/panjang */
+        }
+        
+        .b-desc { font-size: 12px; color: #dcdde1; line-height: 1.5; margin-bottom: 15px; flex-grow: 1; }
+        
+        .b-btn {
+            background: #8c7ae6; color: white; text-decoration: none; padding: 6px 12px;
+            border-radius: 5px; font-size: 11px; align-self: flex-start; transition: 0.3s;
+        }
+        .b-btn:hover { background: #a29bfe; }
+
+        /* --- RESPONSIF MOBILE --- */
+        @media (max-width: 1100px) {
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            body { overflow-y: auto; padding: 20px 0 50px 0; display: block; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; overflow: visible; }
+            .top-nav { position: relative; width: 90%; justify-content: space-between; top: auto; left: auto; transform: none; margin-bottom: 10px; }
+            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; top: auto; right: auto; margin-bottom: 20px; }
+            .blog-container {
+                position: relative; top: auto; left: auto; transform: none;
+                width: 90%; height: auto; overflow: visible; padding: 20px;
+            }
+            .blog-scroll-area { overflow: visible; height: auto; }
+            .blog-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>    
+<body>
+    <div class="main-stage">
+        
+        <div class="widget top-nav">
+            <a href="index.html" style="text-decoration: none; color: inherit;"><i class="fas fa-home"></i></a>
+            <a href="about.html" style="text-decoration: none; color: inherit;"><i class="far fa-user"></i></a>
+            <a href="cv.html" style="text-decoration: none; color: inherit;"><i class="fa-brands fa-wpforms"></i></a>
+            <div><i class="fas fa-edit active-icon"></i> <span data-key="nav_blog">Blog</span></div>
+            <a href="gallery.html" style="text-decoration: none; color: inherit;"><i class="far fa-images"></i></a>
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <div class="widget lang-switcher">
+            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+        </div>
+
+        <div class="widget blog-container">
+            <div class="blog-header">
+                <h2 data-key="blog_header">Recent Posts</h2>
+            </div>
+
+            <div class="blog-scroll-area">
+                <div class="blog-grid">
+                    
+                    <div class="blog-card">
+                        <img src="assets/image (1).webp" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Dec 05, 2025</span>
+                            <h3 class="b-title" data-key="title_1">At the end of the year</h3>
+                            <p class="b-desc" data-key="desc_1">Reflecting on the past year, refreshing my mind.</p>
+                            <a href="read.html?file=2025-12-05-at-the-end-of-the-year.md" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Scammer" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Sep 30, 2025</span>
+                            <h3 class="b-title" data-key="title_2">Characteristics of a Scammer?</h3>
+                            <p class="b-desc" data-key="desc_2">A reminder on how to identify potential scammers.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=ChatGPT" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Aug 17, 2025</span>
+                            <h3 class="b-title" data-key="title_3">Using chatGPT to create simple code</h3>
+                            <p class="b-desc" data-key="desc_3">Tutorial on how AI tools can assist in coding.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Migration" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Aug 07, 2025</span>
+                            <h3 class="b-title" data-key="title_4">The migration process is complete</h3>
+                            <p class="b-desc" data-key="desc_4">Updates regarding the server migration process.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Intro" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Feb 15, 2025</span>
+                            <h3 class="b-title" data-key="title_5">Introduction and New Post</h3>
+                            <p class="b-desc" data-key="desc_5">A fresh start! Introducing the new format.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Alive" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Feb 10, 2025</span>
+                            <h3 class="b-title" data-key="title_6">This blog is not completed dead</h3>
+                            <p class="b-desc" data-key="desc_6">Just an update that this blog is still alive.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Last+2024" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Dec 24, 2024</span>
+                            <h3 class="b-title" data-key="title_7">Last post in this year</h3>
+                            <p class="b-desc" data-key="desc_7">Closing the year with a small note.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <img src="https://placehold.co/600x400/png?text=Priconne" class="b-thumb" alt="Thumb">
+                        <div class="b-content">
+                            <span class="b-date">Dec 05, 2024</span>
+                            <h3 class="b-title" data-key="title_8">Retiring from my favourite game</h3>
+                            <p class="b-desc" data-key="desc_8">A farewell to Princess Connect.</p>
+                            <a href="#" class="b-btn" data-key="btn_read">Read</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    // --- DATA BAHASA & KONTEN BLOG ---
+    const translations = {
+        en: {
+            nav_blog: "Blog",
+            blog_header: "Recent Posts",
+            btn_read: "Read",
+            
+            // Blog Titles & Descs (EN)
+            title_1: "At the end of the year",
+            desc_1: "Reflecting on the past year, refreshing my mind, and preparing for what's coming next.",
+            
+            title_2: "Characteristics of a Scammer?",
+            desc_2: "A reminder and guide on how to identify potential scammers online to stay safe.",
+            
+            title_3: "Using chatGPT to create simple code",
+            desc_3: "Tutorial on how AI tools can assist in generating simple code snippets for your projects.",
+            
+            title_4: "The migration process is complete",
+            desc_4: "Updates regarding the server and platform migration process of this blog.",
+            
+            title_5: "Introduction and New Post",
+            desc_5: "A fresh start! Introducing the new format and what to expect from future posts.",
+            
+            title_6: "This blog is not completed dead",
+            desc_6: "Just a small update to confirm that this blog is still alive and running.",
+            
+            title_7: "Last post in this year",
+            desc_7: "Closing the year 2024 with a small note before stepping into the next one.",
+            
+            title_8: "Deciding to retiring from my favourite game",
+            desc_8: "A difficult decision to say farewell to Princess Connect Re:Dive."
+        },
+        id: {
+            nav_blog: "Blog",
+            blog_header: "Tulisan Terbaru",
+            btn_read: "Baca",
+            
+            // Blog Titles & Descs (ID)
+            title_1: "Di penghujung tahun",
+            desc_1: "Blog, Refreshing | Merefleksikan tahun lalu, menyegarkan pikiran, dan bersiap untuk apa yang akan datang.",
+            
+            title_2: "Apa ciri-ciri seorang penipu?",
+            desc_2: "Reminder | Pengingat dan panduan tentang cara mengidentifikasi potensi penipu online agar tetap aman.",
+            
+            title_3: "Menggunakan chatGPT untuk membuat kode sederhana",
+            desc_3: "Tutorial | Panduan tentang bagaimana alat AI dapat membantu dalam menghasilkan potongan kode sederhana.",
+            
+            title_4: "Proses migrasi telah selesai",
+            desc_4: "Blogs | Pembaruan mengenai proses migrasi server dan platform blog ini ke tempat baru.",
+            
+            title_5: "Perkenalan dan Postingan Baru",
+            desc_5: "Introduction | Awal yang baru! Memperkenalkan format baru dan apa yang diharapkan dari postingan masa depan.",
+            
+            title_6: "Blog ini belum sepenuhnya mati",
+            desc_6: "Blog, Migrate | Hanya pembaruan kecil untuk mengonfirmasi bahwa blog ini masih hidup.",
+            
+            title_7: "Postingan terakhir di tahun ini",
+            desc_7: "Blogs | Menutup tahun 2024 dengan sebuah catatan kecil sebelum melangkah ke tahun berikutnya.",
+            
+            title_8: "Memutuskan untuk pensiun dari game favoritku",
+            desc_8: "Blogs, Princess Connect | Keputusan sulit untuk mengucapkan selamat tinggal pada Princess Connect Re:Dive."
+        },
+        ja: {
+            nav_blog: "ブログ",
+            blog_header: "最近の投稿",
+            btn_read: "読む",
+            
+            // Blog Titles & Descs (JP) - Translated for context
+            title_1: "年末に",
+            desc_1: "過去1年を振り返り、心をリフレッシュし、次に来るものに備える。",
+            
+            title_2: "詐欺師の特徴とは？",
+            desc_2: "オンラインで詐欺師を見分け、安全を保つためのリマインダーとガイド。",
+            
+            title_3: "ChatGPTを使って簡単なコードを作成する",
+            desc_3: "AIツールを使ってプロジェクト用の簡単なコードスニペットを作成する方法のチュートリアル。",
+            
+            title_4: "移行プロセスが完了しました",
+            desc_4: "このブログのサーバーおよびプラットフォーム移行プロセスに関する更新。",
+            
+            title_5: "紹介と新しい投稿",
+            desc_5: "新たなスタート！新しい形式と今後の投稿について。",
+            
+            title_6: "このブログはまだ完全に死んでいません",
+            desc_6: "このブログがまだ稼働していることを確認するための小さな更新。",
+            
+            title_7: "今年最後の投稿",
+            desc_7: "次の年に進む前に、小さなメモで2024年を締めくくります。",
+            
+            title_8: "お気に入りのゲームから引退することを決意",
+            desc_8: "Princess Connect Re:Diveに別れを告げるという難しい決断。"
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if(data[key]) el.innerText = data[key];
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    setLanguage('en'); 
+</script>
+</body>
+</html>
