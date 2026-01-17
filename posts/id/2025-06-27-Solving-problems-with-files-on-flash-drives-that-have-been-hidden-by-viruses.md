@@ -5,6 +5,8 @@ category: 'tutorial'
 lang: id
 ---
 
+![image](assets/hidden-fd.png)
+
 > [!NOTE]
 > Sebenarnya ini artikel adalah salinan dari postingan yang aku buat di fb kemarin
 

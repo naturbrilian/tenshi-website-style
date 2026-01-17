@@ -5,6 +5,8 @@ category: 'tutorial'
 lang: en
 ---
 
+![image](assets/hidden-fd.png)
+
 > [!NOTE]
 > Actually, this article is a copy of a post I made on Facebook yesterday
 
