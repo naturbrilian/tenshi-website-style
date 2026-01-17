@@ -1,8 +1,8 @@
 ---
-title: Last post in this year
+title: Postingan terakhir di tahun ini
 published: 2024-12-24
 category: 'blogging'
-lang: en
+lang: id
 ---
 
 Tidak terasa 2024 akan berakhir, waktu berjalan semakin cepat. Perasaan kemarin baru jalan-jalan sama teman disuatu tempat hehehe.
