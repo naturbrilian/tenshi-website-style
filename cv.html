@@ -25,10 +25,10 @@
         }
 
         .main-stage {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
         }
 
-        /* --- 2. WIDGET STYLE (Wajib ada biar kaca) --- */
+        /* --- 2. WIDGET STYLE --- */
         .widget {
             background: rgba(45, 52, 117, 0.85);
             backdrop-filter: blur(10px);
@@ -39,21 +39,31 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             z-index: 10;
+            transition: all 0.3s ease;
         }
 
-        /* --- 3. NAVIGASI & BAHASA --- */
+        /* Wrapper Khusus Header Mobile */
+        .mobile-header-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
+        }
+
+        /* Tombol Menu HP */
+        .mobile-menu-toggle { display: none; }
+
+        /* --- 3. NAVIGASI & BAHASA (Desktop) --- */
         .top-nav {
             position: absolute; top: 0; left: 50%; 
             transform: translateX(-50%);
             display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
-            width: fit-content; align-items: center;
+            width: fit-content; align-items: center; z-index: 50;
         }
-        .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
+        .top-nav a { color: #8c7ae6; transition: 0.3s; }
+        .top-nav a:hover, .top-nav i:hover { color: white; cursor: pointer; }
         .active-icon { color: white; margin-right: 5px; }
 
         .lang-switcher {
             position: absolute; top: 0; right: 0;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
         }
         .lang-btn {
             cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
@@ -65,34 +75,22 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 1190px; /* Lebih lebar untuk CV */
+            width: 1190px;
             height: 65vh;
             display: grid;
-            grid-template-columns: 300px 1fr; /* Kiri 300px, Kanan sisanya */
-            gap: 0; /* Gap diurus padding */
-            padding: 0;
-            overflow: hidden; /* Biar rounded corner tetap rapi */
+            grid-template-columns: 300px 1fr;
+            gap: 0; padding: 0; overflow: hidden;
         }
 
-        /* Sidebar Kiri (Kontak & Skill) */
         .cv-sidebar {
-            background: rgba(0, 0, 0, 0.2); /* Sedikit lebih gelap */
-            padding: 30px;
-            overflow-y: auto;
-            border-right: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.2); padding: 30px;
+            overflow-y: auto; border-right: 1px solid rgba(255,255,255,0.1);
         }
+        .cv-main { padding: 30px 40px; overflow-y: auto; }
 
-        /* Konten Kanan (Pengalaman & Edukasi) */
-        .cv-main {
-            padding: 30px 40px;
-            overflow-y: auto;
-        }
-
-        /* --- Scrollbar Custom --- */
         .cv-sidebar::-webkit-scrollbar, .cv-main::-webkit-scrollbar { width: 6px; }
         .cv-sidebar::-webkit-scrollbar-thumb, .cv-main::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
 
-        /* --- Typography CV --- */
         h2 { font-size: 24px; color: #a29bfe; margin-bottom: 5px; margin-top: 0; }
         h3 { font-size: 18px; color: #fff; margin-bottom: 15px; border-bottom: 2px solid #badc58; padding-bottom: 5px; display: inline-block; }
         h4 { font-size: 16px; color: #dfe6e9; margin: 15px 0 5px 0; }
@@ -101,44 +99,88 @@
         p, li { font-size: 13px; line-height: 1.6; color: #dcdde1; margin-bottom: 10px; }
         ul { padding-left: 20px; margin-top: 5px; }
 
-        /* Kontak List */
         .contact-list { list-style: none; padding: 0; margin-bottom: 30px; }
         .contact-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
         .contact-list i { color: #a29bfe; width: 20px; text-align: center; }
 
-        /* Skill Bar */
         .skill-item { margin-bottom: 15px; }
         .skill-name { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: #fff; }
         .progress-bg { background: rgba(255,255,255,0.1); height: 6px; border-radius: 10px; overflow: hidden; }
         .progress-bar { background: #badc58; height: 100%; border-radius: 10px; }
 
-        /* Responsive Mobile */
+        .exp-item { margin-bottom: 30px; position: relative; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .exp-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: #8c7ae6; border-radius: 50%; }
+
+        .cv-header-name { font-size: 32px; color: #a29bfe; font-weight: 900; margin-bottom: 5px; }
+        .cv-header-role { font-size: 16px; color: #badc58; font-weight: bold; margin-bottom: 20px; }
+
+        /* --- 5. RESPONSIF MOBILE (SAMA DENGAN HALAMAN LAIN) --- */
         @media (max-width: 768px) {
-            body { height: auto; padding: 20px 0; display: block; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+            body { overflow-y: auto; padding: 20px 0 50px 0; display: block; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
+
             .widget, .cv-container {
-                position: relative !important; top: auto !important; left: auto !important; transform: none !important;
-                width: 90%; margin: 0 auto;
+                position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+                transform: none !important; width: 90% !important; max-width: 100%; margin: 0 auto;
             }
-            .cv-container { display: flex; flex-direction: column; height: auto; }
-            .cv-sidebar, .cv-main { overflow: visible; padding: 20px; border: none; }
-            .top-nav { position: relative; width: 90%; justify-content: space-between; order: 1; }
-            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; order: 0; margin-bottom: 10px; }
-            .cv-container { order: 2; }
+
+            /* 1. Header Mobile */
+            .mobile-header-wrapper {
+                position: relative !important; display: flex; width: 90% !important;
+                justify-content: space-between; gap: 10px; order: 1; z-index: 50;
+            }
+            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
+            .mobile-menu-toggle {
+                display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px;
+                padding: 12px; cursor: pointer; font-weight: bold; font-size: 16px; color: white;
+            }
+            .lang-switcher { flex-grow: 0; padding: 10px 15px; align-items: center; justify-content: center; }
+
+            /* 2. Navigasi Dropdown */
+            .top-nav { 
+                order: 2; display: none !important; 
+                flex-direction: column; padding: 10px 20px !important; margin-top: -5px;
+            }
+            .top-nav.open { display: flex !important; }
+            .top-nav a, .top-nav div, .top-nav i.fa-cog {
+                width: 100%; display: flex; justify-content: center; padding: 12px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1); margin: 0;
+            }
+            .top-nav > *:last-child { border-bottom: none; }
+
+            /* 3. Konten CV */
+            .cv-container {
+                order: 3; height: auto !important; grid-template-columns: 1fr; padding-bottom: 20px !important;
+            }
+            .cv-sidebar { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px; overflow: visible; }
+            .cv-main { padding: 25px; overflow: visible; }
         }
     </style>
 </head>    
 <body>
     <div class="main-stage">
         
-        <div class="widget top-nav">
+        <div class="mobile-header-wrapper">
+            <div class="widget mobile-menu-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
+            </div>
+            <div class="widget lang-switcher">
+                <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+                <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+            </div>
+        </div>
+
+        <div class="widget top-nav" id="myTopNav">
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-home"></i>
             </a>
             <a href="about.html" style="text-decoration: none; color: inherit;">
                 <i class="far fa-user"></i>
             </a>
-            <div><i class="fa-brands fa-wpforms"></i> <span data-key="nav_cv">CV</span></div>
+            <div style="color: white; display: flex; align-items: center; gap: 5px;">
+                <i class="fa-brands fa-wpforms active-icon"></i> <span data-key="nav_cv">CV</span>
+            </div>
             <a href="blog.html" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-edit"></i>
             </a>
@@ -148,24 +190,18 @@
             <i class="fas fa-cog"></i>
         </div>
 
-        <div class="widget lang-switcher">
-            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
-            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
-            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
-        </div>
-
         <div class="widget cv-container">
             
             <div class="cv-sidebar">
                 <h3 data-key="sec_contact">Contact</h3>
                 <ul class="contact-list">
-                    <a href="tel:+6289686865736">
+                    <a href="tel:+6289686865736" style="text-decoration: none; color: inherit;">
                         <li><i class="fas fa-phone"></i> +6289686865736</li>
                     </a>
-                    <a href="mailto:liba.natur.brilian@gmail.com">
+                    <a href="mailto:liba.natur.brilian@gmail.com" style="text-decoration: none; color: inherit;">
                         <li><i class="fas fa-envelope"></i> liba.natur.brilian@gmail.com</li>
                     </a>
-                    <a href="https://linkedin.com/in/naturbrilian" target="_blank">
+                    <a href="https://linkedin.com/in/naturbrilian" target="_blank" style="text-decoration: none; color: inherit;">
                         <li><i class="fab fa-linkedin"></i> Liba Natur Brilian</li>
                     </a>
                     <li><i class="fas fa-map-marker-alt"></i> Kediri, Indonesia</li>
@@ -207,7 +243,7 @@
 
             <div class="cv-main">
                 <h2 data-key="cv_name">Lieba Natur Brilian</h2>
-                <div style="color: #badc58; margin-bottom: 20px;">Video Editor & Graphic Designer</div>
+                <div style="color: #badc58; margin-bottom: 20px;" data-key="cv_role">Video Editor & Graphic Designer</div>
                 
                 <p data-key="cv_summary">
                     My name is Liba Natur Brilian also known as naturbrilian and Gingalibadeidara for another project. I have experience on video editor, graphics design and social media admin at Kediri Televisi and The Java Post ID. Also a contributor at Yurasubs as Graphics Design Staff.
@@ -223,7 +259,7 @@
                 <div class="sub-title">The Java Post ID | 2023 – Present</div>
                 <p data-key="job2_desc">Working as Video Editor & Website Admin.</p>
 
-                <h4>Graphics Designer</h4>
+                <h4 data-key="job3_title">Graphics Designer</h4>
                 <div class="sub-title">Yurasubs | 2021 – 2024</div>
                 <p data-key="job3_desc">Graphics Designer for unit group translation JP-ID Yuramedia, also as translator checker.</p>
 
@@ -246,10 +282,10 @@
     </div>
 
 <script>
-    // --- DATA BAHASA (CV LENGKAP) ---
     const translations = {
         en: {
             nav_cv: "CV",
+            nav_menu: "Menu",
             sec_contact: "Contact",
             sec_skill: "Skills",
             sec_lang: "Languages",
@@ -261,6 +297,7 @@
             lang_en: "English",
 
             cv_name: "Lieba Natur Brilian",
+            cv_role: "Video Editor & Graphic Designer",
             cv_summary: "My name is Liba Natur Brilian also known as naturbrilian and Gingalibadeidara for another project. I have experience on video editor, graphics design and social media admin at Kediri Televisi and The Java Post ID. Also a contributor at Yurasubs as Graphics Design Staff.",
             
             job1_title: "Video Editor & Social Media Admin",
@@ -269,6 +306,7 @@
             job2_title: "Video Editor & Website Admin",
             job2_desc: "Working as Video Editor & Website Admin.",
             
+            job3_title: "Graphics Designer",
             job3_desc: "Graphics Designer for unit group translation JP-ID Yuramedia, also as translator checker.",
             
             job4_title: "Social Media Graphics Designer",
@@ -279,6 +317,7 @@
         },
         id: {
             nav_cv: "CV",
+            nav_menu: "Menu",
             sec_contact: "Kontak",
             sec_skill: "Keahlian",
             sec_lang: "Bahasa",
@@ -290,6 +329,7 @@
             lang_en: "Inggris",
 
             cv_name: "Lieba Natur Brilian",
+            cv_role: "Video Editor & Desainer Grafis",
             cv_summary: "Nama saya Liba Natur Brilian, juga dikenal sebagai naturbrilian dan Gingalibadeidara. Saya berpengalaman sebagai editor video, desain grafis, dan admin media sosial di Kediri Televisi dan The Java Post ID. Juga kontributor di Yurasubs sebagai Staf Desain Grafis.",
             
             job1_title: "Video Editor & Admin Sosmed",
@@ -298,6 +338,7 @@
             job2_title: "Video Editor & Admin Website",
             job2_desc: "Bekerja sebagai Video Editor & Admin Website.",
             
+            job3_title: "Desainer Grafis",
             job3_desc: "Desainer Grafis untuk grup terjemahan JP-ID Yuramedia, juga sebagai pemeriksa terjemahan.",
             
             job4_title: "Desainer Grafis Media Sosial",
@@ -308,6 +349,7 @@
         },
         ja: {
             nav_cv: "履歴書",
+            nav_menu: "メニュー",
             sec_contact: "連絡先",
             sec_skill: "スキル",
             sec_lang: "言語",
@@ -319,6 +361,7 @@
             lang_en: "英語",
 
             cv_name: "リーバ・ナトゥール",
+            cv_role: "動画編集者 & グラフィックデザイナー",
             cv_summary: "私の名前はリーバ・ナトゥール・ブリリアン（naturbrilian、またはGingalibadeidara）です。Kediri TelevisiとThe Java Post IDで動画編集、グラフィックデザイン、SNS管理の経験があります。Yurasubsではグラフィックデザインスタッフとして貢献しています。",
             
             job1_title: "動画編集者 & SNS管理者",
@@ -327,6 +370,7 @@
             job2_title: "動画編集者 & ウェブサイト管理者",
             job2_desc: "動画編集者およびウェブサイト管理者として勤務。",
             
+            job3_title: "グラフィックデザイナー",
             job3_desc: "翻訳グループYuramedia（JP-ID）のグラフィックデザイナー、および翻訳チェッカー。",
             
             job4_title: "SNSグラフィックデザイナー",
@@ -350,6 +394,11 @@
                 btn.classList.add('active');
             }
         });
+    }
+
+    function toggleNav() {
+        const nav = document.getElementById("myTopNav");
+        nav.classList.toggle("open");
     }
 
     setLanguage('en'); 

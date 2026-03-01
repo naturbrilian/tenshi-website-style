@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* --- 1. SETUP GLOBAL (DARI SCRIPT KAMU) --- */
+        /* --- 1. SETUP GLOBAL --- */
         * { box-sizing: border-box; }
         
         body {
@@ -23,11 +23,11 @@
             font-family: 'Nunito', 'Noto Sans JP', sans-serif;
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center;
-            color: white; overflow: hidden; /* Scroll diurus di dalam widget */
+            color: white; overflow: hidden; 
         }
 
         .main-stage {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
         }
 
         /* --- 2. WIDGET STYLE --- */
@@ -41,14 +41,23 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             z-index: 10;
+            transition: all 0.3s ease;
         }
 
-        /* --- 3. NAVIGASI (NEMPEL ATAS) --- */
+        /* Wrapper Khusus Header Mobile */
+        .mobile-header-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
+        }
+
+        /* Tombol Menu HP */
+        .mobile-menu-toggle { display: none; }
+
+        /* --- 3. NAVIGASI & BAHASA (Desktop) --- */
         .top-nav {
             position: absolute; top: 0; left: 50%; 
             transform: translateX(-50%);
             display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
-            width: fit-content; align-items: center;
+            width: fit-content; align-items: center; z-index: 50;
         }
         .top-nav a { color: #8c7ae6; transition: 0.3s; text-decoration: none; }
         .top-nav a:hover, .top-nav i:hover { color: white; cursor: pointer; }
@@ -56,43 +65,26 @@
 
         .lang-switcher {
             position: absolute; top: 0; right: 0;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
         }
         .lang-btn {
             cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
         }
         .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
 
-        /* --- 4. CONTAINER ARTIKEL (GAYA CV/BLOG) --- */
+        /* --- 4. CONTAINER ARTIKEL --- */
         .article-container {
             position: absolute;
             top: 55%; left: 50%; 
             transform: translate(-50%, -50%);
-            width: 100%; 
-            height: 75vh;
-            
-            display: flex; flex-direction: column;
-            padding: 40px;
-            overflow-y: auto; /* Scroll konten artikel */
+            width: 100%; height: 75vh;
+            display: flex; flex-direction: column; padding: 40px;
+            overflow-y: auto; 
         }
 
-        /* Scrollbar Halus */
         .article-container::-webkit-scrollbar { width: 8px; }
         .article-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
         .article-container::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
-
-        /* Style Konten Markdown */
-        #markdown-content { color: #dfe6e9; line-height: 1.8; margin-top: 20px; }
-        #markdown-content h1 { font-size: 2.2em; color: #a29bfe; border-bottom: 2px solid #8c7ae6; padding-bottom: 10px; margin-top: 0; font-weight: 900; }
-        #markdown-content h2, #markdown-content h3 { color: #a29bfe; margin-top: 30px; }
-        #markdown-content p { font-size: 1.1em; margin-bottom: 20px; }
-        #markdown-content img { max-width: 100%; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
-        #markdown-content a { color: #8c7ae6; text-decoration: none; border-bottom: 1px dashed #8c7ae6; }
-        #markdown-content a:hover { color: white; border-bottom: 1px solid white; }
-        #markdown-content code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 5px; color: #fab1a0; font-family: monospace; }
-        #markdown-content pre { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; overflow-x: auto; margin-bottom: 20px; }
-        #markdown-content pre code { background: transparent; padding: 0; color: inherit; }
-        #markdown-content blockquote { border-left: 5px solid #8c7ae6; padding: 10px 20px; margin: 20px 0; background: rgba(255,255,255,0.05); font-style: italic; border-radius: 0 10px 10px 0; }
 
         .back-link {
             display: inline-flex; align-items: center; gap: 5px; 
@@ -101,36 +93,118 @@
         }
         .back-link:hover { color: white; transform: translateX(-5px); }
 
-        /* Responsif HP */
+        /* --- 5. FORMATTING MARKDOWN LENGKAP --- */
+        #markdown-content { color: #dfe6e9; line-height: 1.8; margin-top: 20px; }
+        
+        #markdown-content h1 { font-size: 2.2em; color: #a29bfe; border-bottom: 2px solid #8c7ae6; padding-bottom: 10px; margin-top: 0; font-weight: 900; }
+        #markdown-content h2 { font-size: 1.8em; color: #a29bfe; margin-top: 30px; margin-bottom: 15px; }
+        #markdown-content h3 { font-size: 1.4em; color: white; margin-top: 25px; margin-bottom: 10px; }
+        
+        #markdown-content p { font-size: 1.1em; margin-bottom: 20px; text-align: justify; }
+        #markdown-content strong { color: white; font-weight: 900; }
+        #markdown-content em { color: #ffeaa7; font-style: italic; }
+        
+        #markdown-content a { color: #8c7ae6; text-decoration: none; border-bottom: 1px dashed #8c7ae6; transition: 0.3s; }
+        #markdown-content a:hover { color: white; border-bottom: 1px solid white; background: rgba(140, 122, 230, 0.1); }
+        
+        #markdown-content ul, #markdown-content ol { padding-left: 25px; margin-bottom: 20px; }
+        #markdown-content li { margin-bottom: 8px; }
+        #markdown-content li::marker { color: #a29bfe; font-weight: bold; }
+        
+        #markdown-content img { max-width: 100%; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        #markdown-content blockquote { 
+            border-left: 5px solid #8c7ae6; padding: 15px 20px; margin: 25px 0; 
+            background: rgba(255,255,255,0.05); color: #b2bec3; font-style: italic; border-radius: 0 10px 10px 0; 
+        }
+        
+        #markdown-content pre { 
+            background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 10px; overflow-x: auto; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); 
+        }
+        #markdown-content pre code { background: transparent; padding: 0; color: #dfe6e9; font-family: 'Consolas', monospace; }
+        
+        #markdown-content code { 
+            background: rgba(255, 255, 255, 0.1); padding: 2px 6px; border-radius: 5px; color: #fab1a0; font-family: 'Consolas', monospace; font-size: 0.9em; 
+        }
+        
+        #markdown-content table { width: 100%; border-collapse: collapse; margin: 25px 0; overflow: hidden; border-radius: 10px; }
+        #markdown-content th, #markdown-content td { padding: 12px 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        #markdown-content th { background-color: rgba(140, 122, 230, 0.3); color: white; font-weight: bold; }
+        #markdown-content tr:hover { background-color: rgba(255,255,255,0.05); }
+        
+        #markdown-content hr { border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 40px 0; }
+
+        /* --- 6. RESPONSIF MOBILE --- */
         @media (max-width: 768px) {
             body { overflow-y: auto; padding: 20px 0 50px 0; display: block; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
             
-            .top-nav { position: relative; width: 90%; justify-content: space-between; top: auto; left: auto; transform: none; margin-bottom: 10px; }
-            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; top: auto; right: auto; margin-bottom: 20px; }
-            
-            .article-container { 
-                position: relative; top: auto; left: auto; transform: none; 
-                width: 90%; height: auto; padding: 25px; 
+            .widget {
+                position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+                transform: none !important; width: 90% !important; max-width: 100%; margin: 0 auto;
             }
+
+            /* Header Mobile */
+            .mobile-header-wrapper {
+                position: relative !important; display: flex; width: 90% !important;
+                justify-content: space-between; gap: 10px; order: 1; z-index: 50;
+            }
+            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
+            .mobile-menu-toggle {
+                display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px;
+                padding: 12px; cursor: pointer; font-weight: bold; font-size: 16px; color: white;
+            }
+            .lang-switcher { flex-grow: 0; padding: 10px 15px; align-items: center; justify-content: center; }
+
+            /* Navigasi Dropdown */
+            .top-nav { 
+                order: 2; display: none !important; 
+                flex-direction: column; padding: 10px 20px !important; margin-top: -5px;
+            }
+            .top-nav.open { display: flex !important; }
+            .top-nav a, .top-nav div, .top-nav i.fa-cog {
+                width: 100%; display: flex; justify-content: center; padding: 12px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1); margin: 0;
+            }
+            .top-nav > *:last-child { border-bottom: none; }
+            
+            /* Konten Artikel */
+            .article-container { 
+                order: 3; padding: 25px !important; height: auto !important; overflow: visible !important;
+            }
+            #markdown-content h1 { font-size: 1.8em; }
         }
     </style>
 </head>    
 <body>
     <div class="main-stage">
         
-        <div class="widget top-nav">
-            <a href="index.html"><i class="fas fa-home"></i></a>
-            <a href="about.html"><i class="far fa-user"></i></a>
-            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
-            <a href="blog.html"><i class="fas fa-edit active-icon"></i></a> <a href="gallery.html"><i class="far fa-images"></i></a>
-            <i class="fas fa-cog"></i>
+        <div class="mobile-header-wrapper">
+            <div class="widget mobile-menu-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
+            </div>
+            <div class="widget lang-switcher">
+                <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+                <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+            </div>
         </div>
 
-        <div class="widget lang-switcher">
-            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
-            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
-            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+        <div class="widget top-nav" id="myTopNav">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="about.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-user"></i>
+            </a>
+            <a href="cv.html" style="text-decoration: none; color: inherit;">
+                <i class="fa-brands fa-wpforms"></i>
+            </a>
+            <div><a href="blog.html" style="text-decoration: none; color: inherit;"><i class="fas fa-edit active-icon"></i></a></div> 
+            <a href="gallery.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-images"></i>
+            </a>
+            <i class="fas fa-cog"></i>
         </div>
 
         <div class="widget article-container">
@@ -148,9 +222,9 @@
     <script>
     // --- 1. DATA BAHASA UI ---
     const uiData = {
-        en: { btn_back: "Back to Blog", loading_msg: "Loading article...", error_msg: "Article not found or not available in this language." },
-        id: { btn_back: "Kembali ke Blog", loading_msg: "Memuat artikel...", error_msg: "Artikel tidak ditemukan atau belum tersedia dalam bahasa ini." },
-        ja: { btn_back: "ブログに戻る", loading_msg: "記事を読み込んでいます...", error_msg: "記事が見つからないか、この言語では利用できません。" }
+        en: { nav_menu: "Menu", btn_back: "Back to Blog", loading_msg: "Loading article...", error_msg: "Article not found or not available in this language." },
+        id: { nav_menu: "Menu", btn_back: "Kembali ke Blog", loading_msg: "Memuat artikel...", error_msg: "Artikel tidak ditemukan atau belum tersedia dalam bahasa ini." },
+        ja: { nav_menu: "メニュー", btn_back: "ブログに戻る", loading_msg: "記事を読み込んでいます...", error_msg: "記事が見つからないか、この言語では利用できません。" }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -160,7 +234,7 @@
     function setLanguage(lang) {
         currentLang = lang;
         
-        // Update UI
+        // Update UI Text
         const texts = uiData[lang];
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
@@ -178,6 +252,13 @@
         loadMarkdown(lang);
     }
 
+    // Toggle Navigasi HP
+    function toggleNav() {
+        const nav = document.getElementById("myTopNav");
+        nav.classList.toggle("open");
+    }
+
+    // --- FUNGSI LOAD & RENDER MARKDOWN ---
     function loadMarkdown(lang) {
         const contentDiv = document.getElementById('markdown-content');
 
@@ -196,16 +277,20 @@
                 return response.text();
             })
             .then(text => {
-                // --- BAGIAN PENTING: HAPUS FRONTMATTER ---
-                // Regex ini akan menghapus semua teks di antara "---" pertama dan kedua
-                const cleanText = text.replace(/^---[\s\S]*?---\s*/, '');
+                // 1. Hapus Frontmatter (Teks di antara "---" paling atas)
+                // Penjelasan Regex: Cari "---" di awal file, hapus semua karakter sampai ketemu "---" lagi, beserta line break-nya.
+                const cleanText = text.replace(/^\s*---[\s\S]*?---\s*/, '');
                 
-                // Render teks yang sudah bersih
+                // 2. Render Markdown ke HTML
                 contentDiv.innerHTML = marked.parse(cleanText);
                 
-                // Update Judul Tab dari H1 pertama (opsional)
+                // 3. Set Title Browser otomatis (Ambil baris pertama # Judul)
                 const titleMatch = cleanText.match(/^#\s+(.*)/m);
-                if (titleMatch) document.title = titleMatch[1] + " - Lieba Natur Brilian";
+                if (titleMatch) {
+                    document.title = titleMatch[1] + " - Lieba Natur Brilian";
+                } else {
+                    document.title = "Reading - Lieba Natur Brilian"; // Fallback
+                }
             })
             .catch(err => {
                 contentDiv.innerHTML = `
@@ -213,11 +298,13 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 15px;"></i>
                         <h3>Oops!</h3>
                         <p>${uiData[lang].error_msg}</p>
+                        <small style="opacity: 0.5;">Path: ${filePath}</small>
                     </div>
                 `;
             });
     }
 
+    // Mulai dengan bahasa Inggris
     setLanguage('en');
 </script>
 </body>

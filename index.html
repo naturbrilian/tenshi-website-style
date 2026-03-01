@@ -12,31 +12,23 @@
         * { box-sizing: border-box; }
         
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: #6c5ce7;
             background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
                               radial-gradient(#8c7ae6 15%, transparent 16%);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
-            /* Update Font: Tambah Noto Sans JP */
             font-family: 'Nunito', 'Noto Sans JP', sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            overflow-x: hidden;
+            display: flex; justify-content: center; align-items: center;
+            color: white; overflow-x: hidden;
         }
 
         .main-stage {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
-            height: 90vh;
+            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
         }
 
-        /* --- 2. STYLE WIDGET --- */
+        /* --- 2. STYLE WIDGET KACA --- */
         .widget {
             background: rgba(45, 52, 117, 0.85);
             backdrop-filter: blur(10px);
@@ -50,86 +42,110 @@
             transition: all 0.3s ease;
         }
 
-        /* Widget Bahasa (Language Switcher) - BARU */
+        /* Wrapper Khusus Header Mobile (Di PC tidak ada efeknya) */
+        .mobile-header-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
+        }
+
+        /* Tombol Menu HP (Sembunyi di PC) */
+        .mobile-menu-toggle { display: none; }
+
+        /* Widget Bahasa */
         .lang-switcher {
-            position: absolute;
-            top: 0; right: 0; /* Pojok Kanan Atas */
-            display: flex; gap: 10px;
-            font-weight: bold; font-size: 14px;
+            position: absolute; top: 0; right: 0; 
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
         }
-        .lang-btn {
-            cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
-        }
-        .lang-btn:hover, .lang-btn.active {
-            background-color: #8c7ae6; color: white;
-        }
+        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+        .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
 
-        /* --- 3. POSISI DESKTOP --- */
-        .main-stage { display: block; }
-
-        /* Navbar */
+        /* Navbar Desktop */
         .top-nav {
             position: absolute; top: 0; left: 50%; 
             transform: translateX(-50%);
             display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
-            width: fit-content; align-items: center;
+            width: fit-content; align-items: center; z-index: 50;
         }
         .top-nav i:hover { color: white; cursor: pointer; }
         .active-icon { color: white; margin-right: 5px; }
 
-        /* Jam (Sesuai kodemu: 302px) */
+        /* --- ELEMEN LAINNYA --- */
         .clock-widget { position: absolute; top: 15%; left: 5%; width: 302px; }
         .time { font-size: 48px; font-weight: 900; color: #a29bfe; display: block; line-height: 1; margin-bottom: 5px; }
         .date { font-size: 16px; color: #dfe6e9; }
 
-        /* Karakter (Sesuai kodemu: 511x647) */
         .character-card {
-            position: absolute;
-            top: 50%; left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-5deg);
             width: 700px; height: 700px;
-            /* Placeholder Image */
             background-image: url('assets/character_full1_67.webp');
-            background-repeat: no-repeat; 
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            border: 0px solid rgba(255,255,255,0.2);
-            z-index: 3;
+            background-repeat: no-repeat; background-size: cover; background-position: center;
+            border-radius: 20px; z-index: 3;
         }
 
-        /* Chat (Sesuai kodemu: 402px) */
         .chat-widget {
             position: absolute; top: 35%; right: 5%;
-            max-width: 402px; display: flex; align-items: center; gap: 15px;
-            border-radius: 50px;
+            max-width: 402px; display: flex; align-items: center; gap: 15px; border-radius: 50px;
         }
         .avatar-circle { width: 50px; height: 50px; background: #333; border-radius: 50%; flex-shrink: 0; border: 2px solid #a29bfe; }
         .chat-content h4 { margin: 0; color: #a29bfe; font-size: 16px; }
         .chat-content p { margin: 0; font-size: 13px; color: #fff; line-height: 1.3; }
 
-        /* Info (Sesuai kodemu: 352px) */
         .info-widget {
             position: absolute; bottom: 10%; left: 5%;
             width: 472px; font-size: 13px; line-height: 1.5;
         }
         .mini-avatar { float: left; width: 40px; height: 40px; background: #333; border-radius: 50%; margin-right: 10px; border: 2px solid #badc58; }
 
-        /* --- 4. RESPONSIVE MOBILE --- */
+        /* --- 4. RESPONSIVE MOBILE (GABUNG MENU & BAHASA) --- */
         @media (max-width: 768px) {
-            body { align-items: flex-start; padding: 20px 0; height: auto; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-bottom: 50px; }
+            body { align-items: flex-start; padding: 20px 0; height: auto; overflow-y: auto; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
+            
             .widget, .character-card {
                 position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
-                transform: none !important; width: 90%; max-width: 100%; margin: 0 auto;
+                transform: none !important; width: 90% !important; max-width: 100%; margin: 0 auto;
             }
-            .lang-switcher { position: relative; width: 90%; justify-content: flex-end; order: 0; margin-bottom: 10px; }
-            .top-nav { position: relative; width: 90%; justify-content: space-between; order: 1; }
-            .character-card { order: 2; height: 400px; }
-            .clock-widget { order: 3; text-align: center; }
+
+            /* 1. Wrapper Header Mobile (Berjejer) */
+            .mobile-header-wrapper {
+                position: relative !important; display: flex; width: 90% !important;
+                justify-content: space-between; gap: 10px; order: 1; z-index: 50;
+            }
+            .mobile-header-wrapper .widget {
+                width: auto !important; margin: 0 !important; /* Timpa width 90% jadi otomatis */
+            }
+
+            /* Tombol Menu (Kiri - Melebar sedikit) */
+            .mobile-menu-toggle {
+                display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px;
+                padding: 12px; cursor: pointer; font-weight: bold; font-size: 16px; color: white;
+            }
+
+            /* Lang Switcher (Kanan - Mengikuti isi) */
+            .lang-switcher {
+                flex-grow: 0; padding: 10px 15px; align-items: center; justify-content: center;
+            }
+
+            /* 2. Navigasi Dropdown Vertikal */
+            .top-nav { 
+                order: 2; 
+                display: none !important; /* Disembunyikan default */
+                flex-direction: column; padding: 10px 20px !important; margin-top: -5px;
+            }
+            .top-nav.open { display: flex !important; } /* Muncul pas diklik */
+            .top-nav a, .top-nav div, .top-nav i.fa-cog {
+                width: 100%; display: flex; justify-content: center; padding: 12px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1); margin: 0;
+            }
+            .top-nav > *:last-child { border-bottom: none; }
+
+            /* 3. Sisa Konten */
+            .character-card { order: 3; height: 400px; background-size: contain; }
+            .clock-widget { order: 4; text-align: center; }
             .clock-widget div { justify-content: center !important; gap: 10px; }
-            .chat-widget { order: 4; border-radius: 20px; }
-            .info-widget { order: 5; }
+            .chat-widget { order: 5; border-radius: 20px; flex-direction: column; text-align: center; }
+            .info-widget { order: 6; text-align: center; }
+            .info-widget .mini-avatar { float: none; margin: 0 auto 10px auto; display: block; }
         }
     </style>
 </head>
@@ -137,7 +153,19 @@
 
     <div class="main-stage">
         
-        <div class="widget top-nav">
+        <div class="mobile-header-wrapper">
+            <div class="widget mobile-menu-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
+            </div>
+            
+            <div class="widget lang-switcher">
+                <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+                <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+            </div>
+        </div>
+
+        <div class="widget top-nav" id="myTopNav">
             <div><i class="fas fa-home active-icon"></i> <span data-key="nav_home">Home</span></div>
             <a href="about.html" style="text-decoration: none; color: inherit;">
                 <i class="far fa-user"></i>
@@ -152,12 +180,6 @@
                 <i class="far fa-images"></i>
             </a>
             <i class="fas fa-cog"></i>
-        </div>
-
-        <div class="widget lang-switcher">
-            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
-            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
-            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
         </div>
 
         <div class="widget clock-widget">
@@ -188,10 +210,10 @@
     </div>
 
 <script>
-    // --- 1. KAMUS BAHASA ---
     const translations = {
         en: {
             nav_home: "Home",
+            nav_menu: "Menu",
             char_name: "Lieba Natur Brilian",
             chat_msg: "Either you run the day, or the day runs you.",
             info_text: "My name is Lieba Natur Brilian, and people also call me Natur. I am a graphic designer, video editor, and contributor translator for various services, applications, and software. People also know me as gingalibadeidara on other websites such as Alphacoders.",
@@ -199,6 +221,7 @@
         },
         id: {
             nav_home: "Beranda",
+            nav_menu: "Menu",
             char_name: "Lieba Natur Brilian",
             chat_msg: "Baiklah, kamu yang mengendalikan hari ini, atau hari ini yang mengendalikanmu.",
             info_text: "Aku Lieba Natur Brilian, dan orang-orang juga memanggilku dengan nama Natur. Aku seorang desainer grafis, editor video, dan penerjemah kontributor untuk berbagai layanan, aplikasi, dan perangkat lunak. Orang-orang juga mengenalku sebagai gingalibadeidara di situs web lain seperti Alphacoders.",
@@ -206,6 +229,7 @@
         },
         ja: {
             nav_home: "ホーム",
+            nav_menu: "メニュー",
             char_name: "リーバ・ナトゥール",
             chat_msg: "「一日は君が支配するものであって、一日に支配されるものではなくて」",
             info_text: "私の名前はリーバ・ナチュール・ブリリアンです。ナチュールとも呼ばれています。グラフィックデザイナー、ビデオ編集者、そして様々なサービス、アプリケーション、ソフトウェアの翻訳者として活動しています。アルファコーダーズなどの他のウェブサイトでは、gingalibadeidara としても知られています。",
@@ -215,18 +239,15 @@
 
     let currentLang = 'en';
 
-    // --- 2. FUNGSI GANTI BAHASA ---
     function setLanguage(lang) {
         currentLang = lang;
         const data = translations[lang];
 
-        // Ubah teks biasa
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(data[key]) el.innerText = data[key];
         });
 
-        // Ubah status tombol aktif
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
             if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
@@ -234,21 +255,23 @@
             }
         });
 
-        updateClock(); // Update tanggal biar formatnya ikut berubah
+        updateClock();
     }
 
-    // --- 3. JAM & TANGGAL ---
+    function toggleNav() {
+        const nav = document.getElementById("myTopNav");
+        nav.classList.toggle("open");
+    }
+
     function updateClock() {
         const now = new Date();
         
-        // Jam
         let hours = now.getHours();
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12; hours = hours ? hours : 12; 
         document.querySelector('.time').innerText = `${hours}:${minutes} ${ampm}`;
 
-        // Tanggal (Ikut Bahasa)
         const locale = translations[currentLang].locale;
         const options = { weekday: 'long', month: 'long', day: 'numeric' };
         document.querySelector('.date').innerText = now.toLocaleDateString(locale, options);
@@ -259,4 +282,3 @@
 </script>
 </body>
 </html>
-

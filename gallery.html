@@ -20,7 +20,7 @@
             background-position: 0 0, 10px 10px;
             font-family: 'Nunito', 'Noto Sans JP', sans-serif;
             
-            /* DESKTOP: Matikan scroll window, kita scroll widget-nya saja */
+            /* DESKTOP: Matikan scroll window */
             min-height: 100vh;
             overflow: hidden; 
             
@@ -29,7 +29,7 @@
         }
 
         .main-stage {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh;
+            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
         }
 
         /* --- 2. WIDGET STYLE --- */
@@ -43,21 +43,31 @@
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             border: 1px solid rgba(255, 255, 255, 0.18);
             z-index: 10;
+            transition: all 0.3s ease;
         }
 
-        /* --- 3. NAVIGASI --- */
+        /* Wrapper Khusus Header Mobile */
+        .mobile-header-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
+        }
+
+        /* Tombol Menu HP */
+        .mobile-menu-toggle { display: none; }
+
+        /* --- 3. NAVIGASI & BAHASA (Desktop) --- */
         .top-nav {
             position: absolute; top: 0; left: 50%; 
             transform: translateX(-50%);
             display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
-            width: fit-content; align-items: center;
+            width: fit-content; align-items: center; z-index: 50;
         }
-        .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
+        .top-nav a { color: #8c7ae6; transition: 0.3s; }
+        .top-nav a:hover, .top-nav i:hover { color: white; cursor: pointer; }
         .active-icon { color: white; margin-right: 5px; }
 
         .lang-switcher {
             position: absolute; top: 0; right: 0;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
         }
         .lang-btn {
             cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s;
@@ -71,134 +81,103 @@
             transform: translate(-50%, -50%);
             width: 1190px;
             height: 65vh; 
-            
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-            overflow: hidden;
+            display: flex; flex-direction: column; padding: 30px; overflow: hidden;
         }
 
-        .gallery-header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+        .gallery-header { margin-bottom: 20px; text-align: center; }
         .gallery-header h2 { margin: 0; font-size: 28px; color: #a29bfe; }
 
-        /* Area Scrollable untuk Grid Gambar (DESKTOP) */
-        .gallery-scroll-area {
-            overflow-y: auto;
-            padding-right: 10px;
-            height: 100%;
-        }
-
-        /* Custom Scrollbar */
+        .gallery-scroll-area { overflow-y: auto; padding-right: 10px; height: 100%; }
         .gallery-scroll-area::-webkit-scrollbar { width: 8px; }
         .gallery-scroll-area::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
         .gallery-scroll-area::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
 
-        /* Grid Layout */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Kolom di Desktop */
-            gap: 20px;
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
-        /* Kartu Gambar */
         .gallery-card {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
+            background: rgba(0, 0, 0, 0.2); border-radius: 10px; padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
         }
-        .gallery-card:hover {
-            background: rgba(0, 0, 0, 0.4);
-            transform: translateY(-5px);
-        }
+        .gallery-card:hover { background: rgba(0, 0, 0, 0.4); transform: translateY(-5px); }
 
         .g-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background: #333;
+            width: 100%; height: 180px; object-fit: cover; border-radius: 8px;
+            margin-bottom: 10px; background: #333;
         }
 
-        .g-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .g-info { display: flex; justify-content: space-between; align-items: center; }
         .g-title { font-size: 14px; font-weight: bold; color: #dfe6e9; }
         
         .dl-btn {
-            background: #8c7ae6; color: white;
-            text-decoration: none; padding: 5px 12px;
-            border-radius: 5px; font-size: 12px;
-            transition: 0.3s;
+            background: #8c7ae6; color: white; text-decoration: none; padding: 5px 12px;
+            border-radius: 5px; font-size: 12px; transition: 0.3s;
         }
         .dl-btn:hover { background: #a29bfe; }
 
-        /* --- 5. RESPONSIF MOBILE (PERBAIKAN SCROLL) --- */
-        @media (max-width: 768px) {
-            
-            /* KUNCI UTAMA: Nyalakan scroll body di HP */
-            body { 
-                height: auto; 
-                overflow-y: auto; /* Izinkan scroll vertikal */
-                display: block;   /* Ubah flex jadi block biar scroll jalan */
-                padding-bottom: 50px;
-            }
 
-            .main-stage { 
-                height: auto; 
-                padding: 20px 0; 
-                display: flex; 
-                flex-direction: column; 
-                align-items: center; 
-                overflow: visible;
-            }
-
-            /* Reset Navigasi biar gak numpuk */
-            .top-nav { 
-                position: relative; top: auto; left: auto; transform: none; 
-                width: 90%; margin: 0 auto 10px auto; 
-                justify-content: space-between; 
-            }
-            
-            .lang-switcher { 
-                position: relative; top: auto; right: auto; 
-                width: 90%; margin: 0 auto 20px auto; 
-                justify-content: flex-end; 
-            }
-            
-            /* Reset Container Galeri biar panjang ke bawah */
-            .gallery-container {
-                position: relative; top: auto; left: auto; transform: none;
-                width: 90%; 
-                height: auto;     /* Tinggi otomatis ngikutin konten */
-                max-height: none; /* Hapus batasan tinggi */
-                overflow: visible;
-                margin-bottom: 50px;
-            }
-
-            /* Matikan scroll internal (biar pake scroll body) */
-            .gallery-scroll-area {
-                overflow: visible;
-                height: auto;
-            }
-
-            /* Ubah jadi 1 Kolom */
-            .gallery-grid { grid-template-columns: 1fr; }
+        /* --- 5. RESPONSIF MOBILE --- */
+        @media (max-width: 1100px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); } /* Jadi 2 kolom di tablet */
         }
 
+        @media (max-width: 768px) {
+            body { height: auto; overflow-y: auto; display: block; padding: 20px 0 50px 0; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; overflow: visible; }
+            
+            .widget {
+                position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+                transform: none !important; width: 90% !important; max-width: 100%; margin: 0 auto;
+            }
+
+            /* 1. Header Mobile Berjejer */
+            .mobile-header-wrapper {
+                position: relative !important; display: flex; width: 90% !important;
+                justify-content: space-between; gap: 10px; order: 1; z-index: 50;
+            }
+            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
+            .mobile-menu-toggle {
+                display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px;
+                padding: 12px; cursor: pointer; font-weight: bold; font-size: 16px; color: white;
+            }
+            .lang-switcher { flex-grow: 0; padding: 10px 15px; align-items: center; justify-content: center; }
+
+            /* 2. Navigasi Dropdown */
+            .top-nav { 
+                order: 2; display: none !important; 
+                flex-direction: column; padding: 10px 20px !important; margin-top: -5px;
+            }
+            .top-nav.open { display: flex !important; }
+            .top-nav a, .top-nav div, .top-nav i.fa-cog {
+                width: 100%; display: flex; justify-content: center; padding: 12px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1); margin: 0;
+            }
+            .top-nav > *:last-child { border-bottom: none; }
+            
+            /* 3. Konten Galeri */
+            .gallery-container {
+                order: 3; height: auto !important; max-height: none; overflow: visible !important;
+                padding: 20px !important;
+            }
+            .gallery-scroll-area { overflow: visible !important; height: auto !important; }
+            .gallery-grid { grid-template-columns: 1fr; } /* 1 kolom di HP */
+        }
     </style>
 </head>    
 <body>
     <div class="main-stage">
         
-        <div class="widget top-nav">
+        <div class="mobile-header-wrapper">
+            <div class="widget mobile-menu-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
+            </div>
+            <div class="widget lang-switcher">
+                <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+                <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+            </div>
+        </div>
+
+        <div class="widget top-nav" id="myTopNav">
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <i class="fas fa-home"></i>
             </a>
@@ -213,12 +192,6 @@
             </a>
             <div><i class="far fa-images active-icon"></i> <span data-key="nav_gallery">Gallery</span></div>
             <i class="fas fa-cog"></i>
-        </div>
-
-        <div class="widget lang-switcher">
-            <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
-            <span class="lang-btn" onclick="setLanguage('id')">ID</span>
-            <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
         </div>
 
         <div class="widget gallery-container">
@@ -316,18 +289,20 @@
     </div>
 
 <script>
-    // --- DATA BAHASA ---
     const translations = {
         en: {
             nav_gallery: "Gallery",
+            nav_menu: "Menu", /* Tambahan untuk Mobile Menu */
             gallery_title: "Gallery"
         },
         id: {
             nav_gallery: "Galeri",
+            nav_menu: "Menu",
             gallery_title: "Galeri"
         },
         ja: {
             nav_gallery: "ギャラリー",
+            nav_menu: "メニュー",
             gallery_title: "ギャラリー"
         }
     };
@@ -344,6 +319,11 @@
                 btn.classList.add('active');
             }
         });
+    }
+
+    function toggleNav() {
+        const nav = document.getElementById("myTopNav");
+        nav.classList.toggle("open");
     }
 
     setLanguage('en'); 
