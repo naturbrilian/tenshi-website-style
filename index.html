@@ -42,7 +42,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Wrapper Header Mobile */
+        /* Wrapper Khusus Header Mobile */
         .mobile-header-wrapper {
             position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
         }
@@ -66,15 +66,15 @@
         .top-nav i:hover { color: white; cursor: pointer; }
         .active-icon { color: white; margin-right: 5px; }
 
-        /* --- ELEMEN LAINNYA --- */
-        .clock-widget { position: absolute; top: 15%; left: 5%; width: 302px; }
+        /* --- ELEMEN LAINNYA (POSISI ZIG-ZAG) --- */
+        .clock-widget { position: absolute; top: 15%; left: 8%; width: 300px; }
         .time { font-size: 48px; font-weight: 900; color: #a29bfe; display: block; line-height: 1; margin-bottom: 5px; }
         .date { font-size: 16px; color: #dfe6e9; }
 
         /* --- WIDGET DISCORD PRESENCE --- */
         .discord-simple-widget {
-            position: absolute; top: 44%; left: 12%; 
-            width: 302px; 
+            position: absolute; top: 40%; left: 14%; /* Menjorok ke kanan sedikit */
+            width: 300px; 
             text-decoration: none; cursor: pointer;
             display: flex; flex-direction: column; gap: 15px;
         }
@@ -106,7 +106,6 @@
         .ds-status {
             display: flex; align-items: center; gap: 6px; font-size: 13px; color: #dfe6e9;
         }
-        /* Default dot color abu-abu sebelum API dimuat */
         .status-dot {
             width: 10px; height: 10px; background-color: #747f8d; border-radius: 50%;
             transition: background-color 0.3s;
@@ -116,23 +115,27 @@
         .character-card {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-5deg);
-            width: 700px; height: 700px;
+            
+            /* Tetap responsif mengikuti tinggi layar */
+            height: 75vh; width: 75vh;
+            max-width: 658px; max-height: 666px; 
+            
             background-image: url('assets/character_full1_67.webp');
-            background-repeat: no-repeat; background-size: cover; background-position: center;
+            background-repeat: no-repeat; background-size: contain; background-position: center;
             border-radius: 20px; z-index: 3;
         }
 
         .chat-widget {
-            position: absolute; top: 35%; right: 5%;
-            max-width: 402px; display: flex; align-items: center; gap: 15px; border-radius: 50px;
+            position: absolute; top: 30%; right: 8%;
+            max-width: 380px; display: flex; align-items: center; gap: 15px; border-radius: 50px;
         }
         .avatar-circle { width: 50px; height: 50px; background: #333; border-radius: 50%; flex-shrink: 0; border: 2px solid #a29bfe; }
         .chat-content h4 { margin: 0; color: #a29bfe; font-size: 16px; }
         .chat-content p { margin: 0; font-size: 13px; color: #fff; line-height: 1.3; }
 
         .info-widget {
-            position: absolute; bottom: 10%; left: 5%;
-            width: 472px; font-size: 13px; line-height: 1.5;
+            position: absolute; bottom: 8%; left: 3%; /* Mentok ke kiri */
+            max-width: 520px; font-size: 13px; line-height: 1.5;
         }
         .mini-avatar { float: left; width: 40px; height: 40px; background: #333; border-radius: 50%; margin-right: 10px; border: 2px solid #badc58; }
 
