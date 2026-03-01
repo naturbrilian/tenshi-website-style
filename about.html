@@ -8,20 +8,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* --- 0. TEMA CATPPUCCIN (AUTO DARK/LIGHT MODE) --- */
+        :root {
+            /* CATPPUCCIN MOCHA (MODE GELAP - DEFAULT) */
+            --bg-color: #1e1e2e;
+            --dot-color: #313244;
+            --widget-bg: rgba(24, 24, 37, 0.65);
+            --widget-border: rgba(255, 255, 255, 0.08);
+            --widget-shadow: rgba(17, 17, 27, 0.5);
+            --text-main: #cdd6f4;
+            --text-muted: #bac2de;
+            --accent-primary: #cba6f7;
+            --accent-secondary: #a6e3a1;
+            --scrollbar-thumb: #cba6f7;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                /* CATPPUCCIN LATTE (MODE TERANG) */
+                --bg-color: #eff1f5;
+                --dot-color: #dce0e8;
+                --widget-bg: rgba(255, 255, 255, 0.55);
+                --widget-border: rgba(255, 255, 255, 0.8);
+                --widget-shadow: rgba(140, 143, 161, 0.15);
+                --text-main: #4c4f69;
+                --text-muted: #6c6f85;
+                --accent-primary: #8839ef;
+                --accent-secondary: #40a02b;
+                --scrollbar-thumb: #8839ef;
+            }
+        }
+
         /* --- 1. SETUP GLOBAL --- */
         * { box-sizing: border-box; }
         
         body {
             margin: 0; padding: 0;
-            background-color: #6c5ce7;
-            background-image: radial-gradient(#8c7ae6 15%, transparent 16%),
-                              radial-gradient(#8c7ae6 15%, transparent 16%);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 15%, transparent 16%),
+                              radial-gradient(var(--dot-color) 15%, transparent 16%);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
             font-family: 'Nunito', 'Noto Sans JP', sans-serif;
             min-height: 100vh;
             display: flex; justify-content: center; align-items: center;
-            color: white; overflow-x: hidden;
+            color: var(--text-main); overflow-x: hidden;
+            transition: background-color 0.5s ease;
         }
 
         .main-stage {
@@ -30,49 +62,43 @@
 
         /* --- 2. STYLE WIDGET --- */
         .widget {
-            background: rgba(45, 52, 117, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: var(--widget-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 15px;
             padding: 15px 25px;
-            color: #a4b0be;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: var(--text-muted);
+            box-shadow: 0 8px 32px 0 var(--widget-shadow);
+            border: 1px solid var(--widget-border);
             z-index: 10;
             transition: all 0.3s ease;
         }
 
-        /* Wrapper Khusus Header Mobile */
-        .mobile-header-wrapper {
-            position: absolute; top: 0; left: 0; width: 100%; z-index: 50;
-        }
-
-        /* Tombol Menu HP */
+        .mobile-header-wrapper { position: absolute; top: 0; left: 0; width: 100%; z-index: 50; }
         .mobile-menu-toggle { display: none; }
 
         /* --- 3. NAVIGASI & BAHASA (Desktop) --- */
         .top-nav {
             position: absolute; top: 0px; left: 50%; 
             transform: translateX(-50%);
-            display: flex; gap: 20px; font-size: 20px; color: #8c7ae6;
-            width: fit-content; align-items: center;
-            z-index: 50;
+            display: flex; gap: 20px; font-size: 20px; color: var(--accent-primary);
+            width: fit-content; align-items: center; z-index: 50;
         }
-        .top-nav i:hover { color: white; cursor: pointer; transition: 0.3s; }
-        .active-icon { color: white; margin-right: 5px; }
+        .top-nav a { text-decoration: none; color: inherit; }
+        .top-nav i:hover { color: var(--text-main); cursor: pointer; transition: 0.3s; }
+        .active-icon { color: var(--text-main); margin-right: 5px; }
 
         .lang-switcher {
             position: absolute; top: 0px; right: 0%;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px;
-            z-index: 50;
+            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
         }
-        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
-        .lang-btn:hover, .lang-btn.active { background-color: #8c7ae6; color: white; }
+        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; color: var(--text-muted); }
+        .lang-btn:hover { color: var(--text-main); }
+        .lang-btn.active { background-color: var(--accent-primary); color: var(--bg-color); }
 
-        /* --- 4. LAYOUT ABOUT (FIX TENGAH PC) --- */
+        /* --- 4. LAYOUT ABOUT --- */
         .about-container {
-            position: absolute;
-            top: 50%; left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             width: 1190px; height: 65vh;
             display: flex; align-items: stretch; gap: 40px; padding: 40px;
@@ -80,110 +106,51 @@
 
         .profile-img {
             width: 300px; height: 100%; object-fit: cover; border-radius: 20px;
-            border: 5px solid rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.3); flex-shrink: 0; 
+            border: 5px solid var(--widget-border); box-shadow: 0 10px 30px var(--widget-shadow); flex-shrink: 0; 
         }
 
-        .about-content {
-            flex: 1; display: flex; flex-direction: column; overflow: hidden; color: white;
-        }
+        .about-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .about-header { margin-bottom: 20px; border-bottom: 1px solid var(--widget-border); padding-bottom: 10px; }
+        .about-header h1 { font-size: 32px; margin: 0 0 5px 0; color: var(--accent-primary); }
+        .role { font-size: 16px; color: var(--text-muted); font-weight: bold; margin: 0; }
 
-        .about-header {
-            margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;
-        }
-
-        .about-header h1 { font-size: 32px; margin: 0 0 5px 0; color: #a29bfe; }
-        .role { font-size: 16px; color: #dfe6e9; font-weight: bold; margin: 0; }
-
-        .bio-text {
-            overflow-y: auto; padding-right: 15px; font-size: 14px; line-height: 1.6; color: #dcdde1; flex-grow: 1; 
-        }
-
+        .bio-text { overflow-y: auto; padding-right: 15px; font-size: 14px; line-height: 1.6; color: var(--text-main); flex-grow: 1; }
         .bio-text::-webkit-scrollbar { width: 8px; }
-        .bio-text::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
-        .bio-text::-webkit-scrollbar-thumb { background: #8c7ae6; border-radius: 10px; }
+        .bio-text::-webkit-scrollbar-track { background: transparent; }
+        .bio-text::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
 
-        .bio-text h3 { color: #a29bfe; margin-top: 20px; margin-bottom: 5px; border-left: 3px solid #badc58; padding-left: 10px; }
+        .bio-text h3 { color: var(--accent-primary); margin-top: 20px; margin-bottom: 5px; border-left: 3px solid var(--accent-secondary); padding-left: 10px; }
         .bio-text p { margin-top: 5px; margin-bottom: 15px; }
 
-
         /* --- 5. DETEKSI RESOLUSI --- */
-        
         @media (max-width: 1100px) {
             .about-container { width: 95%; padding: 30px; gap: 20px; }
             .profile-img { width: 250px; }
         }
 
-        /* HP & Tablet Portrait */
         @media (max-width: 768px) {
             body { align-items: flex-start; padding: 20px 0; height: auto; overflow-y: auto; }
             .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
-
-            .widget, .about-container {
-                position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
-                transform: none !important; width: 90% !important; max-width: 100%; margin: 0 auto;
-            }
-
-            /* 1. Wrapper Header Mobile */
-            .mobile-header-wrapper {
-                position: relative !important; display: flex; width: 90% !important;
-                justify-content: space-between; gap: 10px; order: 1; z-index: 50;
-            }
-            .mobile-header-wrapper .widget {
-                width: auto !important; margin: 0 !important;
-            }
-
-            .mobile-menu-toggle {
-                display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px;
-                padding: 12px; cursor: pointer; font-weight: bold; font-size: 16px; color: white;
-            }
-
-            .lang-switcher {
-                flex-grow: 0; padding: 10px 15px; align-items: center; justify-content: center;
-            }
-
-            /* 2. Navigasi Dropdown */
-            .top-nav { 
-                order: 2; 
-                display: none !important; 
-                flex-direction: column; padding: 10px 20px !important; margin-top: -5px;
-            }
-            .top-nav.open { display: flex !important; } 
-            .top-nav a, .top-nav div, .top-nav i.fa-cog {
-                width: 100%; display: flex; justify-content: center; padding: 12px 0;
-                border-bottom: 1px solid rgba(255,255,255,0.1); margin: 0;
-            }
-            .top-nav > *:last-child { border-bottom: none; }
-            
-            /* 3. Konten About Me (FIXED POTONGAN TEXT) */
-            .about-container { 
-                order: 3; 
-                flex-direction: column; 
-                padding: 25px !important; 
-                height: auto !important; /* Biarkan melar ke bawah */
-                overflow: visible !important; /* Mencegah kotak luar memotong */
-            }
-            .about-content {
-                overflow: visible !important; /* Mencegah kolom kanan memotong */
-            }
-            .profile-img { 
-                width: 100%; height: 300px; margin-bottom: 20px; 
-            }
-            .bio-text { 
-                overflow: visible !important; /* Mematikan scroll internal, pakai scroll body HP */
-                height: auto !important; 
-                padding-right: 0;
-            } 
+            .widget, .about-container { position: relative !important; top: auto !important; left: auto !important; transform: none !important; width: 90% !important; margin: 0 auto; }
+            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; gap: 10px; order: 1; }
+            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
+            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; padding: 12px; color: var(--text-main); font-weight: bold; }
+            .lang-switcher { flex-grow: 0; padding: 10px 15px; position: relative; }
+            .top-nav { order: 2; display: none !important; flex-direction: column; padding: 10px 20px !important; margin-top: -5px; }
+            .top-nav.open { display: flex !important; }
+            .top-nav a, .top-nav div, .top-nav i.fa-cog { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
+            .about-container { order: 3; flex-direction: column; height: auto !important; padding: 25px !important; }
+            .profile-img { width: 100%; height: 300px; margin-bottom: 20px; }
+            .bio-text { overflow: visible !important; height: auto !important; }
         }
     </style>
 </head>    
 <body>
     <div class="main-stage">
-        
         <div class="mobile-header-wrapper">
             <div class="widget mobile-menu-toggle" onclick="toggleNav()">
                 <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
             </div>
-            
             <div class="widget lang-switcher">
                 <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
                 <span class="lang-btn" onclick="setLanguage('id')">ID</span>
@@ -192,46 +159,32 @@
         </div>
 
         <div class="widget top-nav" id="myTopNav">
-            <a href="index.html" style="text-decoration: none; color: inherit;">
-                <i class="fas fa-home"></i>
-            </a>
-            <div><i class="far fa-user active-icon"></i> <span data-key="nav_about">About</span></div>
-            <a href="cv.html" style="text-decoration: none; color: inherit;">
-                <i class="fa-brands fa-wpforms"></i>
-            </a>
-            <a href="blog.html" style="text-decoration: none; color: inherit;">
-                <i class="fas fa-edit"></i>
-            </a>
-            <a href="gallery.html" style="text-decoration: none; color: inherit;">
-                <i class="far fa-images"></i>
-            </a>
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <div><i class="far fa-user active-icon"></i> <span style="color: var(--text-main);" data-key="nav_about">About</span></div>
+            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
+            <a href="blog.html"><i class="fas fa-edit"></i></a>
+            <a href="gallery.html"><i class="far fa-images"></i></a>
             <i class="fas fa-cog"></i>
         </div>
 
         <div class="widget about-container">
             <img src="assets/avatar-ori.jpg" alt="Profile" class="profile-img">
-
             <div class="about-content">
                 <div class="about-header">
                     <h1 data-key="about_name">Lieba Natur Brilian</h1>
                     <div class="role" data-key="about_role">Video Editor & Graphic Designer</div>
                 </div>
-
                 <div class="bio-text" data-key-html="bio_full">
                     <p>Loading bio...</p>
                 </div>
             </div>
         </div>
-
     </div>
 
 <script>
     const translations = {
         en: {
-            nav_about: "About",
-            nav_menu: "Menu", 
-            about_name: "Lieba Natur Brilian",
-            about_role: "Video Editor & Graphic Designer",
+            nav_about: "About", nav_menu: "Menu", about_name: "Lieba Natur Brilian", about_role: "Video Editor & Graphic Designer",
             bio_full: `
                 <p>Hello and Welcome to my site! I’m Liba Natur Brilian and also known as Natur or gingalibadeidara, a video editor and graphics designer with a deep passion for technology, art, music and content creation.</p>
                 <p>Here, I share my recent projects like design, video editing, vectors, and blogging. I hope this platform can be a space to share inspiration, ideas, and engaging discussions with you.</p>
@@ -249,10 +202,7 @@
             `
         },
         id: {
-            nav_about: "Tentang",
-            nav_menu: "Menu",
-            about_name: "Lieba Natur Brilian",
-            about_role: "Video Editor & Desainer Grafis",
+            nav_about: "Tentang", nav_menu: "Menu", about_name: "Lieba Natur Brilian", about_role: "Video Editor & Desainer Grafis",
             bio_full: `
                 <p>Halo dan Selamat Datang di situs saya! Saya Liba Natur Brilian, juga dikenal sebagai Natur atau gingalibadeidara, seorang editor video dan desainer grafis dengan hasrat mendalam terhadap teknologi, seni, musik, dan pembuatan konten.</p>
                 <p>Di sini, saya membagikan proyek terbaru saya seperti desain, editing video, vektor, dan blog. Saya berharap platform ini dapat menjadi ruang untuk berbagi inspirasi, ide, dan diskusi menarik dengan Anda.</p>
@@ -270,52 +220,43 @@
             `
         },
         ja: {
-            nav_about: "プロフィール",
-            nav_menu: "メニュー",
-            about_name: "リーバ・ナトゥール",
-            about_role: "動画編集者 & グラフィックデザイナー",
+            nav_about: "プロフィール", nav_menu: "メニュー", about_name: "リーバ・ナトゥール", about_role: "動画編集者 & グラフィックデザイナー",
             bio_full: `
                 <p>こんにちは、私のサイトへようこそ！リーバ・ナトゥール・ブリリアン（Natur、またはgingalibadeidara）です。テクノロジー、アート、音楽、コンテンツ制作に情熱を持つ動画編集者兼グラフィックデザイナーです。</p>
-                <p>ここでは、デザイン、動画編集、ベクターアート、ブログなどの最近のプロジェクトを共有しています。この場所がインスピレーションやアイデアを共有できる場になれば嬉しいです。</p>
-                <h3>興味・関心</h3>
+                <p>ここでは、デザイン、動画編集, ベクター、ブログなど、私の最新のプロジェクトを紹介しています。このプラットフォームがインスピレーション、アイデア、そしてあなたとの魅力的な議論を共有するための空間になることを願っています。</p>
+                <h3>興味</h3>
                 <h3>テクノロジー</h3>
-                <p>小学生の頃、当時のネットカフェブームがきっかけでテクノロジーに興味を持ちました。最初はOS付属のゲームしか知りませんでしたが、2007年にインターネットなどを知るようになりました。</p>
+                <p>小学生の頃からテクノロジーに興味を持っていました。最初は当時のインターネットカフェ（ネットカフェ）時代がきっかけでした。当初はオペレーティングシステムに付属していたゲームしか知りませんでしたが、2007年にインターネットなどを知りました。</p>
                 <h3>音楽</h3>
-                <p>きっかけは父がほぼ毎週日曜の朝にVCDプレーヤーやカセットテープで曲を流していたことです。最初は古い洋楽、次にインドネシアの曲、そして当時の中学の友人の影響でK-POP（Super JuniorやSNSDなど）、最終的にJ-POPに至り現在も続いています。クラシック音楽や東方などの同人音楽も好きです。</p>
+                <p>最初は、父自身がほぼ毎週日曜日の朝にVCDプレーヤーやカセットテープで曲を流していたことがきっかけでした。最初は古い洋楽のジャンルだけに興味がありましたが、その後インドネシアの曲、そして当時の中学校の友人の影響でK-POP（スーパージュニアやSNSDなど）に興味を持ち、最終的には現在までJ-POPの曲を聴くようになりました。あ、そうそう、クラシック音楽や、東方などの同人音楽も好きです。</p>
                 <h3>アニメ</h3>
-                <p>インドネシアのテレビで放送されていたアニメが始まりでした。最初に見たのはナルトで、2012年に『リトルバスターズ！』（私のお気に入りの一つです）に興味を持ち、今まで続いていますが、最近はあまり見なくなりました。視聴履歴はAnilistで確認できます。</p>
+                <p>きっかけはインドネシアのテレビ局で放映されていたアニメでした。最初に見たアニメは「ナルト」で、その後2012年に「リトルバスターズ」（これも私のお気に入りのアニメの一つです）に興味を持ち始め、最終的に今でもあまり見なくなりましたが、見続けています。現在見ているアニメの進行状況は、私のAnilistをチェックしてください。</p>
                 <h3>ゲーム & ビジュアルノベル</h3>
-                <p>これらへの興味は、Nightcoreの曲を聞いたことから始まりました。動画に使われているイラストの出典が気になり、それがビジュアルノベルだと知って興味を持ち始めました。当時話題だったのは『恋×シンアイ彼女』でした。ゲーム自体は、学校の友人が『Bully Scholarship Edition』をプレイしていたのがきっかけで、最初のモバイルゲームはデレステ（THE IDOLM@STER: CINDERELLA GIRLS STARLIGHT STAGE）でした。</p>
+                <p>さて、このゲームとビジュアルノベルについてですが、最初は夜想曲（今で言うsped up）を聴いたことから始まり、ビデオで使用されているアートワークがファンアート、アニメ、または他のソースからのものだったので興味を持ちました。それがビジュアルノベルから来ていることが分かり、ここからビジュアルノベルをプレイすることに興味を持ち始めました。当時、話題になっていたビジュアルノベルは「恋×シンアイ彼女」でした。ゲーム自体は、学校の友達が「Bully Scholarship Edition」をプレイしていたことがきっかけで始まり、最初にプレイしたモバイルゲームは「THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS（デレステ）」でした。</p>
                 <h3>翻訳</h3>
-                <p>正直なところ、カラオケ字幕エフェクトの作り方を学んだ時に翻訳の世界に興味を持ちました。2016年に翻訳の世界に飛び込みましたが、学校の専攻ではありませんでした。最初は暇つぶしと語学（インドネシア語と英語）への興味からでしたが、ドイツ語、日本語、中国語も話せるようになりたいので、さらに発展させていきたいです。</p>
+                <p>正直に言うと、カラオケ効果や字幕の作り方を学んだ時に、初めて翻訳の世界に興味を持ちました。2016年に、学校の専攻ではありませんでしたが、翻訳の世界に飛び込み始めました。最初は暇つぶしのためでしたが、インドネシア語と英語の両方の語学レッスンに興味があったからです。そして、これはさらに発展させなければなりません。特にドイツ語、日本語、中国語を話せるようになりたいと思っています。</p>
             `
         }
     };
 
     function setLanguage(lang) {
         const data = translations[lang];
-        
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if(data[key]) el.innerText = data[key];
         });
-        
         document.querySelectorAll('[data-key-html]').forEach(el => {
             const key = el.getAttribute('data-key-html');
             if(data[key]) el.innerHTML = data[key];
         });
-        
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
-            if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
-                btn.classList.add('active');
-            }
+            if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) btn.classList.add('active');
         });
     }
 
     function toggleNav() {
-        const nav = document.getElementById("myTopNav");
-        nav.classList.toggle("open");
+        document.getElementById("myTopNav").classList.toggle("open");
     }
 
     setLanguage('en'); 
