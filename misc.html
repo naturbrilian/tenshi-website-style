@@ -99,13 +99,14 @@
         /* Mobile */
         @media (max-width: 768px) {
             body { align-items: flex-start; padding: 20px 0; height: auto; overflow-y: auto; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
             .widget, .misc-container { position: relative !important; top: auto !important; left: auto !important; transform: none !important; width: 90% !important; margin: 0 auto; }
-            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; order: 1; }
-            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; color: var(--text-main); font-weight: bold; }
-            .top-nav { order: 2; display: none !important; flex-direction: column; width: 90% !important; }
+            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; gap: 10px; order: 1; }
+            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
+            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; padding: 12px; color: var(--text-main); font-weight: bold; }
+            .top-nav { order: 2; display: none !important; flex-direction: column; padding: 10px 20px !important; margin-top: -5px; }
             .top-nav.open { display: flex !important; }
-            .top-nav a, .top-nav div { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
+            .top-nav a, .top-nav div {width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
             .misc-container { order: 3; }
             .link-grid { grid-template-columns: 1fr; }
         }
