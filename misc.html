@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My gabut website | Video Editor, Graphics Designer & Translator">
+    <meta name="keywords" content="gingalibadeidara, naturbrilian, vector, skin, wallpaper, gingalibadeidara works, zenotype project">
+    <title>Misc - Lieba Natur Brilian (naturbrilian)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 0. TEMA CATPPUCCIN --- */
+        :root {
+            --bg-color: #1e1e2e; --dot-color: #313244;
+            --widget-bg: rgba(24, 24, 37, 0.65);
+            --widget-border: rgba(255, 255, 255, 0.08);
+            --widget-shadow: rgba(17, 17, 27, 0.5);
+            --text-main: #cdd6f4; --text-muted: #bac2de;
+            --accent-primary: #cba6f7; --accent-secondary: #a6e3a1;
+            --scrollbar-thumb: #cba6f7;
+        }
+
+        ::selection { background-color: var(--accent-primary); color: var(--bg-color); }
+        ::-moz-selection { background-color: var(--accent-primary); color: var(--bg-color); }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: #eff1f5; --dot-color: #dce0e8;
+                --widget-bg: rgba(255, 255, 255, 0.55);
+                --widget-border: rgba(255, 255, 255, 0.8);
+                --widget-shadow: rgba(140, 143, 161, 0.15);
+                --text-main: #4c4f69; --text-muted: #6c6f85;
+                --accent-primary: #8839ef; --accent-secondary: #40a02b;
+                --scrollbar-thumb: #8839ef;
+            }
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 0; background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 15%, transparent 16%),
+                              radial-gradient(var(--dot-color) 15%, transparent 16%);
+            background-size: 20px 20px; background-position: 0 0, 10px 10px;
+            font-family: 'Nunito', 'Noto Sans JP', sans-serif; min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--text-main); transition: background-color 0.5s ease;
+        }
+
+        .main-stage { position: relative; width: 100%; max-width: 1200px; height: 90vh; }
+
+        .widget {
+            background: var(--widget-bg); backdrop-filter: blur(12px);
+            border-radius: 15px; padding: 15px 25px; color: var(--text-muted);
+            box-shadow: 0 8px 32px 0 var(--widget-shadow); border: 1px solid var(--widget-border);
+            z-index: 10; transition: all 0.3s ease;
+        }
+
+        /* Nav & Lang Switcher */
+        .mobile-header-wrapper { position: absolute; top: 0; left: 0; width: 100%; z-index: 50; }
+        .mobile-menu-toggle { display: none; }
+        .top-nav {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 20px; font-size: 20px; color: var(--accent-primary); z-index: 50;
+        }
+        .top-nav a { text-decoration: none; color: inherit; transition: 0.3s; }
+        .top-nav i:hover { color: var(--text-main); cursor: pointer; }
+        .active-icon { color: var(--text-main); margin-right: 5px; }
+
+        .lang-switcher { position: absolute; top: 0; right: 0; display: flex; gap: 10px; font-weight: bold; font-size: 14px; }
+        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; color: var(--text-muted); }
+        .lang-btn.active { background-color: var(--accent-primary); color: var(--bg-color); }
+
+        /* Misc Layout */
+        .misc-container {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 1190px; max-height: 65vh; display: flex; flex-direction: column;
+            display: flex; align-items: stretch; gap: 40px; padding: 40px;
+        }
+        .misc-header { margin-bottom: 20px; border-bottom: 1px solid var(--widget-border); padding-bottom: 10px; }
+        .misc-header h1 { font-size: 28px; margin: 0; color: var(--accent-primary); }
+
+        .link-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; overflow-y: auto; padding-right: 10px;
+        }
+        .link-grid::-webkit-scrollbar { width: 6px; }
+        .link-grid::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+
+        .nav-card {
+            display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--widget-border);
+            text-decoration: none; color: inherit; transition: 0.3s;
+        }
+        .nav-card:hover { border-color: var(--accent-primary); transform: translateY(-2px); background: var(--widget-bg); }
+        .nav-card i { font-size: 20px; color: var(--accent-secondary); width: 25px; text-align: center; }
+        .nav-info h3 { margin: 0; font-size: 15px; color: var(--text-main); }
+        .nav-info p { margin: 2px 0 0 0; font-size: 11px; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            body { align-items: flex-start; padding: 20px 0; height: auto; overflow-y: auto; }
+            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+            .widget, .misc-container { position: relative !important; top: auto !important; left: auto !important; transform: none !important; width: 90% !important; margin: 0 auto; }
+            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; order: 1; }
+            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; color: var(--text-main); font-weight: bold; }
+            .top-nav { order: 2; display: none !important; flex-direction: column; width: 90% !important; }
+            .top-nav.open { display: flex !important; }
+            .top-nav a, .top-nav div { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
+            .misc-container { order: 3; }
+            .link-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-stage">
+        <div class="mobile-header-wrapper">
+            <div class="widget mobile-menu-toggle" onclick="toggleNav()">
+                <i class="fas fa-bars"></i> <span data-key="nav_menu">Menu</span>
+            </div>
+            <div class="widget lang-switcher">
+                <span class="lang-btn active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-btn" onclick="setLanguage('id')">ID</span>
+                <span class="lang-btn" onclick="setLanguage('ja')">JP</span>
+            </div>
+        </div>
+
+        <div class="widget top-nav" id="myTopNav">
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="about.html"><i class="far fa-user"></i></a>
+            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
+            <a href="blog.html"><i class="fas fa-edit"></i></a>
+            <a href="gallery.html"><i class="far fa-images"></i></a>
+            <div><i class="fas fa-cog active-icon"></i> <span style="color: var(--text-main);" data-key="nav_misc">Misc</span></div>
+        </div>
+
+        <div class="widget misc-container">
+            <div class="misc-header">
+                <h1 data-key="misc_title">Misc & Navigation</h1>
+            </div>
+            <div class="link-grid" id="link-grid">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: { nav_menu: "Menu", nav_misc: "Misc", misc_title: "Navigation & Links" },
+            id: { nav_menu: "Menu", nav_misc: "Lainnya", misc_title: "Navigasi & Tautan" },
+            ja: { nav_menu: "メニュー", nav_misc: "その他", misc_title: "ナビゲーション＆リンク" }
+        };
+
+        const links = [
+            { icon: "fab fa-github", title: "GitHub", desc: "My repositories & projects", url: "https://github.com/naturbrilian" },
+            { icon: "fab fa-youtube", title: "YouTube", desc: "Video editing works", url: "https://www.youtube.com/@naturbrilian" },
+            { icon: "fab fa-lastfm", title: "Last.fm", desc: "Music scrobbling history", url: "https://last.fm/user/naturbrilian" },
+            { icon: "fab fa-telegram", title: "Telegram", desc: "Direct contact", url: "https://t.me/naturbrilian" },
+            { icon: "fas fa-image", title: "AlphaCoders", desc: "Wallpaper contributions", url: "https://alphacoders.com/users/profile/175487" },
+            { icon: "fas fa-globe", title: "Legacy Site", desc: "Old Tenshi style", url: "https://naturbrilian.github.io/tenshi-website-style/" }
+        ];
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(translations[lang][key]) el.innerText = translations[lang][key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) btn.classList.add('active');
+            });
+        }
+
+        function toggleNav() { document.getElementById("myTopNav").classList.toggle("open"); }
+
+        function renderLinks() {
+            const grid = document.getElementById('link-grid');
+            grid.innerHTML = links.map(link => `
+                <a href="${link.url}" class="nav-card" target="_blank">
+                    <i class="${link.icon}"></i>
+                    <div class="nav-info"><h3>${link.title}</h3><p>${link.desc}</p></div>
+                </a>
+            `).join('');
+        }
+
+        renderLinks();
+    </script>
+</body>
+</html>

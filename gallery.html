@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Lieba Natur Brilian</title>
+    <meta name="description" content="My gabut website | Video Editor, Graphics Designer & Translator">
+    <meta name="keywords" content="gingalibadeidara, naturbrilian, vector, skin, wallpaper, gingalibadeidara works, zenotype project">
+    <title>Gallery - Lieba Natur Brilian (naturbrilian)</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -23,6 +25,17 @@
             --card-bg: rgba(17, 17, 27, 0.3);
             --scrollbar-thumb: #cba6f7;
         }
+
+         ::selection {
+              background-color: var(--accent-primary); /* Warna Mauve transparan */
+              color: var(--bg-color);
+        }
+
+/* Biar jalan di browser Safari/Chrome lama */
+        ::-moz-selection {
+             background-color: var(--accent-primary);
+             color: var(--bg-color);
+        }       
 
         @media (prefers-color-scheme: light) {
             :root {
@@ -208,7 +221,7 @@
             <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
             <a href="blog.html"><i class="fas fa-edit"></i></a>
             <div><i class="far fa-images active-icon"></i> <span style="color: var(--text-main);" data-key="nav_gallery">Gallery</span></div>
-            <i class="fas fa-cog"></i>
+            <a href="misc.html"><i class="fas fa-cog"></i></a>
         </div>
 
         <div class="widget gallery-container">
