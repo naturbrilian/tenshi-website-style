@@ -1,0 +1,95 @@
+/* ========================================
+   CATPPUCCIN THEME VARIABLES
+   Auto Dark/Light Mode Support
+   ======================================== */
+
+:root {
+    /* CATPPUCCIN MOCHA (DARK MODE - DEFAULT) */
+    
+    /* Base Colors */
+    --bg-color: #1e1e2e;
+    --dot-color: #313244;
+    --text-main: #cdd6f4;
+    --text-muted: #bac2de;
+    
+    /* Widget Styles */
+    --widget-bg: rgba(24, 24, 37, 0.65);
+    --widget-border: rgba(255, 255, 255, 0.08);
+    --widget-shadow: rgba(17, 17, 27, 0.5);
+    --widget-hover-bg: rgba(30, 30, 46, 0.85);
+    
+    /* Accent Colors */
+    --accent-primary: #cba6f7;    /* Mauve */
+    --accent-secondary: #a6e3a1;  /* Green */
+    
+    /* Status Colors */
+    --status-online: #a6e3a1;     /* Green */
+    --status-idle: #f9e2af;       /* Yellow */
+    --status-dnd: #f38ba8;        /* Red */
+    --status-offline: #7f849c;    /* Overlay 0 */
+    
+    /* UI Elements */
+    --card-bg: rgba(17, 17, 27, 0.3);
+    --scrollbar-thumb: #cba6f7;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-2xl: 32px;
+    
+    /* Border Radius */
+    --radius-sm: 5px;
+    --radius-md: 10px;
+    --radius-lg: 15px;
+    --radius-xl: 20px;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Light Mode - Catppuccin Latte */
+@media (prefers-color-scheme: light) {
+    :root {
+        /* Base Colors */
+        --bg-color: #eff1f5;
+        --dot-color: #dce0e8;
+        --text-main: #4c4f69;
+        --text-muted: #6c6f85;
+        
+        /* Widget Styles */
+        --widget-bg: rgba(255, 255, 255, 0.55);
+        --widget-border: rgba(255, 255, 255, 0.8);
+        --widget-shadow: rgba(140, 143, 161, 0.15);
+        --widget-hover-bg: rgba(255, 255, 255, 0.9);
+        
+        /* Accent Colors */
+        --accent-primary: #8839ef;     /* Mauve */
+        --accent-secondary: #40a02b;   /* Green */
+        
+        /* Status Colors */
+        --status-online: #40a02b;      /* Green */
+        --status-idle: #df8e1d;        /* Yellow */
+        --status-dnd: #d20f39;         /* Red */
+        --status-offline: #9ca0b0;     /* Overlay 0 */
+        
+        /* UI Elements */
+        --card-bg: rgba(255, 255, 255, 0.4);
+        --scrollbar-thumb: #8839ef;
+    }
+}
+
+/* Text Selection Styling */
+::selection {
+    background-color: var(--accent-primary);
+    color: var(--bg-color);
+}
+
+::-moz-selection {
+    background-color: var(--accent-primary);
+    color: var(--bg-color);
+}

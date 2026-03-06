@@ -1,0 +1,247 @@
+/* ========================================
+   SHARED GLOBAL STYLES
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(var(--dot-color) 15%, transparent 16%),
+        radial-gradient(var(--dot-color) 15%, transparent 16%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-main);
+    overflow-x: hidden;
+    transition: background-color var(--transition-slow);
+}
+
+/* ========================================
+   LAYOUT CONTAINERS
+   ======================================== */
+
+.main-stage {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    display: block;
+}
+
+/* ========================================
+   WIDGET BASE STYLES
+   ======================================== */
+
+.widget {
+    background: var(--widget-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--text-muted);
+    box-shadow: 0 8px 32px 0 var(--widget-shadow);
+    border: 1px solid var(--widget-border);
+    z-index: 10;
+    transition: all var(--transition-normal);
+}
+
+.widget:hover {
+    transform: translateY(-3px);
+    background: var(--widget-hover-bg);
+    box-shadow: 0 12px 40px 0 var(--widget-shadow);
+}
+
+/* ========================================
+   NAVIGATION & LANGUAGE SWITCHER
+   ======================================== */
+
+.mobile-header-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+.mobile-menu-toggle {
+    display: none;
+}
+
+.top-nav {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--spacing-lg);
+    font-size: 20px;
+    color: var(--accent-primary);
+    width: fit-content;
+    align-items: center;
+    z-index: 50;
+    padding: var(--spacing-md);
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-normal);
+}
+
+.top-nav i {
+    transition: color var(--transition-normal);
+    cursor: pointer;
+}
+
+.top-nav i:hover {
+    color: var(--text-main);
+}
+
+.active-icon {
+    color: var(--text-main);
+    margin-right: var(--spacing-sm);
+}
+
+.lang-switcher {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: var(--spacing-sm);
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 50;
+    padding: var(--spacing-md);
+}
+
+.lang-btn {
+    cursor: pointer;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
+    color: var(--text-muted);
+    border: none;
+    background: transparent;
+    font-weight: bold;
+}
+
+.lang-btn:hover {
+    color: var(--text-main);
+}
+
+.lang-btn.active {
+    background-color: var(--accent-primary);
+    color: var(--bg-color);
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - TABLET
+   ======================================== */
+
+@media (max-width: 1100px) {
+    .main-stage {
+        max-width: 95%;
+    }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    body {
+        align-items: flex-start;
+        padding: var(--spacing-lg) 0;
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .main-stage {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-lg);
+        padding-bottom: 50px;
+    }
+
+    .widget,
+    .main-stage > div[class*="-container"] {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+    .mobile-header-wrapper {
+        position: relative !important;
+        display: flex;
+        width: 90% !important;
+        justify-content: space-between;
+        gap: var(--spacing-md);
+        order: 1;
+    }
+
+    .mobile-header-wrapper .widget {
+        width: auto !important;
+        margin: 0 !important;
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+        color: var(--text-main);
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .top-nav {
+        position: relative !important;
+        transform: none !important;
+        gap: var(--spacing-md);
+        order: 2;
+        width: 90% !important;
+    }
+
+    .lang-switcher {
+        position: relative !important;
+        width: auto !important;
+        order: 3;
+    }
+}

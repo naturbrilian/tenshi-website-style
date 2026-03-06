@@ -1,0 +1,297 @@
+/* ========================================
+   INDEX PAGE SPECIFIC STYLES
+   ======================================== */
+
+/* Clock Widget */
+.clock-widget {
+    position: absolute;
+    top: 12%;
+    left: 8%;
+    width: 300px;
+}
+
+.time {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--accent-primary);
+    display: block;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.date {
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+/* Discord Widget */
+.discord-simple-widget {
+    position: absolute;
+    top: 35%;
+    left: 14%;
+    width: 300px;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.discord-simple-widget:hover {
+    transform: translateY(-3px);
+    background: var(--widget-hover-bg);
+    box-shadow: 0 12px 40px 0 var(--widget-shadow);
+}
+
+.ds-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ds-header i {
+    font-size: 14px;
+    color: var(--accent-primary);
+}
+
+.ds-body {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.ds-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--widget-border);
+}
+
+.ds-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ds-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.ds-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--status-offline);
+    transition: background-color var(--transition-normal);
+}
+
+/* Character Card */
+.character-card {
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    height: 75vh;
+    width: 75vh;
+    max-width: 650px;
+    max-height: 650px;
+    background-image: url('assets/character_full1_67.webp');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: var(--radius-xl);
+    z-index: 3;
+}
+
+/* Chat Widget */
+.chat-widget {
+    position: absolute;
+    top: 32%;
+    right: 8%;
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    border-radius: 50px;
+}
+
+.avatar-circle {
+    width: 50px;
+    height: 50px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid var(--accent-primary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat-content h4 {
+    margin: 0;
+    color: var(--accent-primary);
+    font-size: 16px;
+}
+
+.chat-content p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+/* Info Widget */
+.info-widget {
+    position: absolute;
+    bottom: 10%;
+    left: 4%;
+    max-width: 420px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+.mini-avatar {
+    float: left;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-color);
+    border-radius: 50%;
+    margin-right: var(--spacing-md);
+    border: 2px solid var(--accent-secondary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mini-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Last.fm Widget */
+.lastfm-widget {
+    position: absolute;
+    bottom: 25%;
+    right: 12%;
+    width: 320px;
+    display: none;
+    z-index: 10;
+}
+
+.lastfm-widget #track-art {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    border: 2px solid var(--widget-border);
+}
+
+.lastfm-widget .ds-header {
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .clock-widget {
+        order: 4;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 90% !important;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .character-card {
+        order: 3;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        height: 400px;
+        width: 90% !important;
+        margin: 0 auto;
+        background-size: contain;
+    }
+
+    .discord-simple-widget {
+        order: 5;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+    .chat-widget {
+        order: 6;
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        border-radius: 20px;
+        flex-direction: column;
+        text-align: center;
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+    .info-widget {
+        order: 7;
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        width: 90% !important;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .info-widget .mini-avatar {
+        float: none;
+        margin: 0 auto var(--spacing-lg) auto;
+        display: block;
+    }
+
+    .lastfm-widget {
+        position: relative !important;
+        width: 90% !important;
+        margin: var(--spacing-lg) auto !important;
+        order: 8 !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+    }
+}

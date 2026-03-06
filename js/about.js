@@ -1,0 +1,95 @@
+/* ========================================
+   ABOUT PAGE SPECIFIC JAVASCRIPT
+   ======================================== */
+
+const translations = {
+    en: {
+        nav_about: "About",
+        nav_menu: "Menu",
+        about_name: "Lieba Natur Brilian",
+        about_role: "Video Editor & Graphic Designer",
+        bio_full: `
+            <p>Hello and Welcome to my site! I'm Liba Natur Brilian and also known as Natur or gingalibadeidara, a video editor and graphics designer with a deep passion for technology, art, music and content creation.</p>
+            <p>Here, I share my recent projects like design, video editing, vectors, and blogging. I hope this platform can be a space to share inspiration, ideas, and engaging discussions with you.</p>
+            <h3>Interest</h3>
+            <h3>Technologies</h3>
+            <p>Already interested in technology since elementary school, initially because of the internet cafe era at that time. At first, I only knew the games that came with the operating system, then in 2007 I got to know the internet and others.</p>
+            <h3>Music</h3>
+            <p>At first, it was because my father himself almost every Sunday morning played songs through a VCD player and cassette tape. At first, he was only interested in the genre of old western songs, then Indonesian songs, then to Kpop because of his junior high school friends at that time (yes, you know Super Junior and SNSD) until finally to JPop songs until now. Oh yes i also like classical music, Doujin music like Touhou etc.</p>
+            <h3>Anime</h3>
+            <p>It started with anime that aired on Indonesian TV stations. The first anime I watched was Naruto, and then in 2012 I started to get interested in Little Busters (yes, this is also one of my favorite anime), and finally I continued until now, even though I rarely watch it anymore. And progress anime i watch now you can check my Anilist.</p>
+            <h3>Game & Visual Novel</h3>
+            <p>Well, for this game and visual novel, I was initially curious, starting from hearing the song nightcore (what sped calls it now), and curious because the artwork used in the video was sourced from fan art, anime or from other sources. It turned out that it came from Visual Novel & because from here I started to be interested in playing Visual Novel. At that time, the Visual Novel that was being hotly discussed was Koi Kakeru Shin Ai Kanojo. As for the game itself, it started because of my school friend who played the game Bully Scholarship Edition, and the first mobile game I played was THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS or known as deresute.</p>
+            <h3>Translation</h3>
+            <p>To be honest, I first became interested in the world of translation when I learned to make karaoke effects and subtitles. In 2016 I started to dive into the world of translation, even though this was not my major at school. At first it was just to fill my free time, because of my interest in language lessons, both Indonesian and English. And this must be developed further, especially since I want to be able to speak German, Japanese, and Mandarin.</p>
+        `
+    },
+    id: {
+        nav_about: "Tentang",
+        nav_menu: "Menu",
+        about_name: "Lieba Natur Brilian",
+        about_role: "Video Editor & Desainer Grafis",
+        bio_full: `
+            <p>Halo dan Selamat Datang di situs saya! Saya Liba Natur Brilian, juga dikenal sebagai Natur atau gingalibadeidara, seorang editor video dan desainer grafis dengan hasrat mendalam terhadap teknologi, seni, musik, dan pembuatan konten.</p>
+            <p>Di sini, saya membagikan proyek terbaru saya seperti desain, editing video, vektor, dan blog. Saya berharap platform ini dapat menjadi ruang untuk berbagi inspirasi, ide, dan diskusi menarik dengan Anda.</p>
+            <h3>Minat</h3>
+            <h3>Teknologi</h3>
+            <p>Sudah tertarik dengan teknologi sejak SD, awalnya karena era warnet saat itu. Mulanya saya hanya tahu game bawaan sistem operasi, lalu pada tahun 2007 saya mulai mengenal internet dan lainnya.</p>
+            <h3>Musik</h3>
+            <p>Awalnya karena ayah saya hampir setiap Minggu pagi memutar lagu lewat VCD player dan kaset pita. Mulanya beliau hanya tertarik pada genre lagu barat lawas, lalu lagu Indonesia, kemudian Kpop karena teman SMP-nya saat itu (ya, Super Junior dan SNSD) hingga akhirnya ke lagu JPop sampai sekarang. Oh ya, saya juga suka musik klasik, musik Doujin seperti Touhou, dll.</p>
+            <h3>Anime</h3>
+            <p>Berawal dari anime yang tayang di stasiun TV Indonesia. Anime pertama yang saya tonton adalah Naruto, lalu pada 2012 saya mulai tertarik dengan Little Busters (ya, ini juga salah satu anime favorit saya), dan akhirnya berlanjut sampai sekarang, meskipun saya sudah jarang menontonnya. Progres anime yang saya tonton bisa dicek di Anilist saya.</p>
+            <h3>Game & Visual Novel</h3>
+            <p>Nah, untuk game dan visual novel ini awalnya saya penasaran, bermula dari mendengar lagu nightcore, dan penasaran karena artwork yang digunakan dalam video bersumber dari fan art, anime atau sumber lain. Ternyata itu berasal dari Visual Novel, dan dari sinilah saya mulai tertarik memainkannya. Saat itu, Visual Novel yang sedang ramai dibicarakan adalah Koi Kakeru Shin Ai Kanojo. Untuk game sendiri, bermula karena teman sekolah saya yang main game Bully Scholarship Edition, dan game mobile pertama yang saya mainkan adalah THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS atau dikenal sebagai deresute.</p>
+            <h3>Terjemahan</h3>
+            <p>Jujur saja, saya pertama kali tertarik pada dunia terjemahan saat belajar membuat efek karaoke dan subtitle. Pada 2016 saya mulai terjun ke dunia terjemahan, meskipun ini bukan jurusan sekolah saya. Awalnya hanya untuk mengisi waktu luang, karena ketertarikan saya pada pelajaran bahasa, baik Bahasa Indonesia maupun Inggris. Dan ini harus dikembangkan lebih lanjut, apalagi saya ingin bisa berbahasa Jerman, Jepang, dan Mandarin.</p>
+        `
+    },
+    ja: {
+        nav_about: "プロフィール",
+        nav_menu: "メニュー",
+        about_name: "リーバ・ナトゥール",
+        about_role: "動画編集者 & グラフィックデザイナー",
+        bio_full: `
+            <p>こんにちは、私のサイトへようこそ！リーバ・ナトゥール・ブリリアン（Natur、またはgingalibadeidara）です。テクノロジー、アート、音楽、コンテンツ制作に情熱を持つ動画編集者兼グラフィックデザイナーです。</p>
+            <p>ここでは、デザイン、動画編集, ベクター、ブログなど、私の最新のプロジェクトを紹介しています。このプラットフォームがインスピレーション、アイデア、そしてあなたとの魅力的な議論を共有するための空間になることを願っています。</p>
+            <h3>興味</h3>
+            <h3>テクノロジー</h3>
+            <p>小学生の頃からテクノロジーに興味を持っていました。最初は当時のインターネットカフェ（ネットカフェ）時代がきっかけでした。当初はオペレーティングシステムに付属していたゲームしか知りませんでしたが、2007年にインターネットなどを知りました。</p>
+            <h3>音楽</h3>
+            <p>最初は、父自身がほぼ毎週日曜日の朝にVCDプレーヤーやカセットテープで曲を流していたことがきっかけでした。最初は古い洋楽のジャンルだけに興味がありましたが、その後インドネシアの曲、そして当時の中学校の友人の影響でK-POP（スーパージュニアやSNSDなど）に興味を持ち、最終的には現在までJ-POPの曲を聴くようになりました。あ、そうそう、クラシック音楽や、東方などの同人音楽も好きです。</p>
+            <h3>アニメ</h3>
+            <p>きっかけはインドネシアのテレビ局で放映されていたアニメでした。最初に見たアニメは「ナルト」で、その後2012年に「リトルバスターズ」（これも私のお気に入りのアニメの一つです）に興味を持ち始め、最終的に今でもあまり見なくなりましたが、見続けています。現在見ているアニメの進行状況は、私のAnilistをチェックしてください。</p>
+            <h3>ゲーム & ビジュアルノベル</h3>
+            <p>さて、このゲームとビジュアルノベルについてですが、最初は夜想曲（今で言うsped up）を聴いたことから始まり、ビデオで使用されているアートワークがファンアート、アニメ、または他のソースからのものだったので興味を持ちました。それがビジュアルノベルから来ていることが分かり、ここからビジュアルノベルをプレイすることに興味を持ち始めました。当時、話題になっていたビジュアルノベルは「恋×シンアイ彼女」でした。ゲーム自体は、学校の友達が「Bully Scholarship Edition」をプレイしていたことがきっかけで始まり、最初にプレイしたモバイルゲームは「THE IDOLM@STER: CINDERELLA GIRLS STARLIGHTS（デレステ）」でした。</p>
+            <h3>翻訳</h3>
+            <p>正直に言うと、カラオケ効果や字幕の作り方を学んだ時に、初めて翻訳の世界に興味を持ちました。2016年に、学校の専攻ではありませんでしたが、翻訳の世界に飛び込み始めました。最初は暇つぶしのためでしたが、インドネシア語と英語の両方の語学レッスンに興味があったからです。そして、これはさらに発展させなければなりません。特にドイツ語、日本語、中国語を話せるようになりたいと思っています。</p>
+        `
+    }
+};
+
+function setLanguage(lang) {
+    const data = translations[lang];
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (data[key]) el.innerText = data[key];
+    });
+    document.querySelectorAll('[data-key-html]').forEach(el => {
+        const key = el.getAttribute('data-key-html');
+        if (data[key]) el.innerHTML = data[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.innerText.toLowerCase() === (lang === 'ja' ? 'jp' : lang)) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function toggleNav() {
+    document.getElementById("myTopNav").classList.toggle("open");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setLanguage('en');
+});
