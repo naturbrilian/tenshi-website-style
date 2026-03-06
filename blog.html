@@ -23,20 +23,6 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/accessibility.css">
 </head>
-<body>
-            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; gap: 10px; order: 1; z-index: 50; }
-            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
-            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; padding: 12px; color: var(--text-main); font-weight: bold; }
-            .lang-switcher { flex-grow: 0; padding: 10px 15px; }
-            .top-nav { order: 2; display: none !important; flex-direction: column; padding: 10px 20px !important; margin-top: -5px; }
-            .top-nav.open { display: flex !important; }
-            .top-nav a, .top-nav div, .top-nav i.fa-cog { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
-            .blog-container { order: 3; padding: 20px !important; overflow: visible; height: auto !important; }
-            .blog-scroll-area { overflow: visible; height: auto; }
-            .blog-grid { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
 <body role="application" aria-label="Blog page">
     <script src="js/accessibility.js"></script>
     <div class="main-stage">
@@ -52,12 +38,22 @@
         </div>
 
         <div class="widget top-nav" id="myTopNav">
-            <a href="index.html"><i class="fas fa-home"></i></a>
-            <a href="about.html"><i class="far fa-user"></i></a>
-            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="about.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-user"></i>
+            </a>
+            <a href="cv.html" style="text-decoration: none; color: inherit;">
+                <i class="fa-brands fa-wpforms"></i>
+            </a>
             <div><i class="fas fa-edit active-icon"></i> <span style="color: var(--text-main);" data-key="nav_blog">Blog</span></div>
-            <a href="gallery.html"><i class="far fa-images"></i></a>
-            <a href="misc.html"><i class="fas fa-cog"></i></a>
+            <a href="gallery.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-images"></i>
+            </a>
+            <a href="misc.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-cog"></i>
+            </a>
         </div>
 
         <div class="widget blog-container">
