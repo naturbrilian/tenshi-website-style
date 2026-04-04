@@ -9,156 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
-        /* --- 0. TEMA CATPPUCCIN (AUTO DARK/LIGHT MODE) --- */
-        :root {
-            /* CATPPUCCIN MOCHA (MODE GELAP - DEFAULT) */
-            --bg-color: #1e1e2e;
-            --dot-color: #313244;
-            --widget-bg: rgba(24, 24, 37, 0.65);
-            --widget-border: rgba(255, 255, 255, 0.08);
-            --widget-shadow: rgba(17, 17, 27, 0.5);
-            --text-main: #cdd6f4;
-            --text-muted: #bac2de;
-            --accent-primary: #cba6f7;
-            --accent-secondary: #a6e3a1;
-            --scrollbar-thumb: #cba6f7;
-        }
-
-         ::selection {
-              background-color: var(--accent-primary); /* Warna Mauve transparan */
-              color: var(--bg-color);
-        }
-
-/* Biar jalan di browser Safari/Chrome lama */
-        ::-moz-selection {
-             background-color: var(--accent-primary);
-             color: var(--bg-color);
-        }       
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                /* CATPPUCCIN LATTE (MODE TERANG) */
-                --bg-color: #eff1f5;
-                --dot-color: #dce0e8;
-                --widget-bg: rgba(255, 255, 255, 0.55);
-                --widget-border: rgba(255, 255, 255, 0.8);
-                --widget-shadow: rgba(140, 143, 161, 0.15);
-                --text-main: #4c4f69;
-                --text-muted: #6c6f85;
-                --accent-primary: #8839ef;
-                --accent-secondary: #40a02b;
-                --scrollbar-thumb: #8839ef;
-            }
-        }
-
-        /* --- 1. SETUP GLOBAL --- */
-        * { box-sizing: border-box; }
-        
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(var(--dot-color) 15%, transparent 16%),
-                              radial-gradient(var(--dot-color) 15%, transparent 16%);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
-            min-height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            color: var(--text-main); overflow-x: hidden;
-            transition: background-color 0.5s ease;
-        }
-
-        .main-stage {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
-        }
-
-        /* --- 2. STYLE WIDGET --- */
-        .widget {
-            background: var(--widget-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 15px 25px;
-            color: var(--text-muted);
-            box-shadow: 0 8px 32px 0 var(--widget-shadow);
-            border: 1px solid var(--widget-border);
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-header-wrapper { position: absolute; top: 0; left: 0; width: 100%; z-index: 50; }
-        .mobile-menu-toggle { display: none; }
-
-        /* --- 3. NAVIGASI & BAHASA (Desktop) --- */
-        .top-nav {
-            position: absolute; top: 0px; left: 50%; 
-            transform: translateX(-50%);
-            display: flex; gap: 20px; font-size: 20px; color: var(--accent-primary);
-            width: fit-content; align-items: center; z-index: 50;
-        }
-        .top-nav a { text-decoration: none; color: inherit; }
-        .top-nav i:hover { color: var(--text-main); cursor: pointer; transition: 0.3s; }
-        .active-icon { color: var(--text-main); margin-right: 5px; }
-
-        .lang-switcher {
-            position: absolute; top: 0px; right: 0%;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
-        }
-        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; color: var(--text-muted); }
-        .lang-btn:hover { color: var(--text-main); }
-        .lang-btn.active { background-color: var(--accent-primary); color: var(--bg-color); }
-
-        /* --- 4. LAYOUT ABOUT --- */
-        .about-container {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1190px; height: 65vh;
-            display: flex; align-items: stretch; gap: 50px; padding: 50px;
-        }
-
-        .profile-img {
-            width: 300px; height: 100%; object-fit: cover; border-radius: 20px;
-            border: 5px solid var(--widget-border); box-shadow: 0 10px 30px var(--widget-shadow); flex-shrink: 0; 
-        }
-
-        .about-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .about-header { margin-bottom: 20px; border-bottom: 1px solid var(--widget-border); padding-bottom: 10px; }
-        .about-header h1 { font-size: 32px; margin: 0 0 5px 0; color: var(--accent-primary); }
-        .role { font-size: 16px; color: var(--text-muted); font-weight: bold; margin: 0; }
-
-        .bio-text { overflow-y: auto; padding-right: 15px; font-size: 14px; line-height: 1.6; color: var(--text-main); flex-grow: 1; }
-        .bio-text::-webkit-scrollbar { width: 8px; }
-        .bio-text::-webkit-scrollbar-track { background: transparent; }
-        .bio-text::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
-
-        .bio-text h3 { color: var(--accent-primary); margin-top: 20px; margin-bottom: 5px; border-left: 3px solid var(--accent-secondary); padding-left: 10px; }
-        .bio-text p { margin-top: 5px; margin-bottom: 15px; }
-
-        /* --- 5. DETEKSI RESOLUSI --- */
-        @media (max-width: 1100px) {
-            .about-container { width: 95%; padding: 30px; gap: 20px; }
-            .profile-img { width: 250px; }
-        }
-
-        @media (max-width: 768px) {
-            body { align-items: flex-start; padding: 20px 0; height: auto; overflow-y: auto; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
-            .widget, .about-container { position: relative !important; top: auto !important; left: auto !important; transform: none !important; width: 90% !important; margin: 0 auto; }
-            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; gap: 10px; order: 1; }
-            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
-            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; padding: 12px; color: var(--text-main); font-weight: bold; }
-            .lang-switcher { flex-grow: 0; padding: 10px 15px; position: relative; }
-            .top-nav { order: 2; display: none !important; flex-direction: column; padding: 10px 20px !important; margin-top: -5px; }
-            .top-nav.open { display: flex !important; }
-            .top-nav a, .top-nav div, .top-nav i.fa-cog { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
-            .about-container { order: 3; flex-direction: column; height: auto !important; padding: 25px !important; }
-            .profile-img { width: 100%; height: 300px; margin-bottom: 20px; }
-            .bio-text { overflow: visible !important; height: auto !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>    
 <body>
+
+
     <div class="main-stage">
         <div class="mobile-header-wrapper">
             <div class="widget mobile-menu-toggle" onclick="toggleNav()">
@@ -172,12 +27,22 @@
         </div>
 
         <div class="widget top-nav" id="myTopNav">
-            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-home"></i>
+            </a>
             <div><i class="far fa-user active-icon"></i> <span style="color: var(--text-main);" data-key="nav_about">About</span></div>
-            <a href="cv.html"><i class="fa-brands fa-wpforms"></i></a>
-            <a href="blog.html"><i class="fas fa-edit"></i></a>
-            <a href="gallery.html"><i class="far fa-images"></i></a>
-            <a href="misc.html"><i class="fas fa-cog"></i></a>
+            <a href="cv.html" style="text-decoration: none; color: inherit;">
+                <i class="fa-brands fa-wpforms"></i>
+            </a>
+            <a href="blog.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="gallery.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-images"></i>
+            </a>
+            <a href="misc.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-cog"></i>
+            </a>
         </div>
 
         <div class="widget about-container">

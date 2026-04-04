@@ -9,163 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <style>
-        /* --- 0. TEMA CATPPUCCIN (AUTO DARK/LIGHT MODE) --- */
-        :root {
-            /* MOCHA (DARK) */
-            --bg-color: #1e1e2e;
-            --dot-color: #313244;
-            --widget-bg: rgba(24, 24, 37, 0.65);
-            --widget-border: rgba(255, 255, 255, 0.08);
-            --widget-shadow: rgba(17, 17, 27, 0.5);
-            --text-main: #cdd6f4;
-            --text-muted: #bac2de;
-            --accent-primary: #cba6f7;
-            --accent-secondary: #a6e3a1;
-            --sidebar-bg: rgba(17, 17, 27, 0.3);
-            --scrollbar-thumb: #cba6f7;
-        }
-
-         ::selection {
-              background-color: var(--accent-primary); /* Warna Mauve transparan */
-              color: var(--bg-color);
-        }
-
-/* Biar jalan di browser Safari/Chrome lama */
-        ::-moz-selection {
-             background-color: var(--accent-primary);
-             color: var(--bg-color);
-        }       
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                /* LATTE (LIGHT) */
-                --bg-color: #eff1f5;
-                --dot-color: #dce0e8;
-                --widget-bg: rgba(255, 255, 255, 0.55);
-                --widget-border: rgba(255, 255, 255, 0.8);
-                --widget-shadow: rgba(140, 143, 161, 0.15);
-                --text-main: #4c4f69;
-                --text-muted: #6c6f85;
-                --accent-primary: #8839ef;
-                --accent-secondary: #40a02b;
-                --sidebar-bg: rgba(255, 255, 255, 0.4);
-                --scrollbar-thumb: #8839ef;
-            }
-        }
-
-        /* --- 1. SETUP GLOBAL --- */
-        * { box-sizing: border-box; }
-        
-        body {
-            margin: 0; padding: 0;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(var(--dot-color) 15%, transparent 16%),
-                              radial-gradient(var(--dot-color) 15%, transparent 16%);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            font-family: 'Nunito', 'Noto Sans JP', sans-serif;
-            min-height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            color: var(--text-main); overflow-x: hidden;
-            transition: background-color 0.5s ease;
-        }
-
-        .main-stage {
-            position: relative; width: 100%; max-width: 1200px; height: 90vh; display: block;
-        }
-
-        /* --- 2. STYLE WIDGET --- */
-        .widget {
-            background: var(--widget-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 15px;
-            padding: 15px 25px;
-            color: var(--text-muted);
-            box-shadow: 0 8px 32px 0 var(--widget-shadow);
-            border: 1px solid var(--widget-border);
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-header-wrapper { position: absolute; top: 0; left: 0; width: 100%; z-index: 50; }
-        .mobile-menu-toggle { display: none; }
-
-        /* --- 3. NAVIGASI --- */
-        .top-nav {
-            position: absolute; top: 0; left: 50%; 
-            transform: translateX(-50%);
-            display: flex; gap: 20px; font-size: 20px; color: var(--accent-primary);
-            width: fit-content; align-items: center; z-index: 50;
-        }
-        .top-nav a { text-decoration: none; color: inherit; transition: 0.3s; }
-        .top-nav i:hover { color: var(--text-main); cursor: pointer; }
-        .active-icon { color: var(--text-main); margin-right: 5px; }
-
-        .lang-switcher {
-            position: absolute; top: 0; right: 0;
-            display: flex; gap: 10px; font-weight: bold; font-size: 14px; z-index: 50;
-        }
-        .lang-btn { cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: 0.3s; color: var(--text-muted); }
-        .lang-btn:hover { color: var(--text-main); }
-        .lang-btn.active { background-color: var(--accent-primary); color: var(--bg-color); }
-
-        /* --- 4. LAYOUT KHUSUS CV --- */
-        .cv-container {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 1190px; height: 65vh;
-            display: grid; grid-template-columns: 300px 1fr;
-            gap: 0; padding: 0; overflow: hidden;
-        }
-
-        .cv-sidebar {
-            background: var(--sidebar-bg); padding: 30px;
-            overflow-y: auto; border-right: 1px solid var(--widget-border);
-        }
-        .cv-main { padding: 30px 40px; overflow-y: auto; }
-
-        .cv-sidebar::-webkit-scrollbar, .cv-main::-webkit-scrollbar { width: 6px; }
-        .cv-sidebar::-webkit-scrollbar-thumb, .cv-main::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
-
-        h2 { font-size: 24px; color: var(--accent-primary); margin-bottom: 5px; margin-top: 0; }
-        h3 { font-size: 18px; color: var(--text-main); margin-bottom: 15px; border-bottom: 2px solid var(--accent-secondary); padding-bottom: 5px; display: inline-block; }
-        h4 { font-size: 16px; color: var(--text-muted); margin: 15px 0 5px 0; font-weight: bold; }
-        
-        .sub-title { font-size: 14px; color: var(--accent-secondary); font-weight: bold; margin-bottom: 5px; }
-        p, li { font-size: 13px; line-height: 1.6; color: var(--text-main); margin-bottom: 10px; }
-        ul { padding-left: 20px; margin-top: 5px; }
-
-        .contact-list { list-style: none; padding: 0; margin-bottom: 30px; }
-        .contact-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--text-main); }
-        .contact-list i { color: var(--accent-primary); width: 20px; text-align: center; }
-
-        .skill-item { margin-bottom: 15px; }
-        .skill-name { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; color: var(--text-main); }
-        .progress-bg { background: var(--dot-color); height: 6px; border-radius: 10px; overflow: hidden; }
-        .progress-bar { background: var(--accent-secondary); height: 100%; border-radius: 10px; }
-
-        .exp-item { margin-bottom: 30px; position: relative; padding-left: 20px; border-left: 2px solid var(--widget-border); }
-        .exp-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent-primary); border-radius: 50%; }
-
-        /* --- 5. RESPONSIF MOBILE --- */
-        @media (max-width: 768px) {
-            body { overflow-y: auto; padding: 20px 0 50px 0; display: block; }
-            .main-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 50px; }
-            .widget, .cv-container { position: relative !important; top: auto !important; left: auto !important; transform: none !important; width: 90% !important; margin: 0 auto; }
-            .mobile-header-wrapper { position: relative !important; display: flex; width: 90% !important; justify-content: space-between; gap: 10px; order: 1; }
-            .mobile-header-wrapper .widget { width: auto !important; margin: 0 !important; }
-            .mobile-menu-toggle { display: flex !important; flex-grow: 1; justify-content: center; align-items: center; gap: 10px; padding: 12px; color: var(--text-main); font-weight: bold; }
-            .lang-switcher { flex-grow: 0; padding: 10px 15px; }
-            .top-nav { order: 2; display: none !important; flex-direction: column; padding: 10px 20px !important; margin-top: -5px; }
-            .top-nav.open { display: flex !important; }
-            .top-nav a, .top-nav div, .top-nav i.fa-cog { width: 100%; display: flex; justify-content: center; padding: 12px 0; border-bottom: 1px solid var(--widget-border); }
-            .cv-container { order: 3; height: auto !important; grid-template-columns: 1fr; padding-bottom: 20px !important; }
-            .cv-sidebar { border-right: none; border-bottom: 1px solid var(--widget-border); padding: 25px; overflow: visible; }
-            .cv-main { padding: 25px; overflow: visible; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>    
 <body>
     <div class="main-stage">
@@ -180,15 +24,23 @@
             </div>
         </div>
 
-        <div class="widget top-nav" id="myTopNav">
-            <a href="index.html"><i class="fas fa-home"></i></a>
-            <a href="about.html"><i class="far fa-user"></i></a>
-            <div style="display: flex; align-items: center; gap: 5px;">
-                <i class="fa-brands fa-wpforms active-icon"></i> <span style="color: var(--text-main);" data-key="nav_cv">CV</span>
-            </div>
-            <a href="blog.html"><i class="fas fa-edit"></i></a>
-            <a href="gallery.html"><i class="far fa-images"></i></a>
-            <a href="misc.html"><i class="fas fa-cog"></i></a>
+          <div class="widget top-nav" id="myTopNav">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="about.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-user"></i>
+            </a>
+            <div><i class="fa-brands fa-wpforms active-icon"></i> <span style="color: var(--text-main);" data-key="nav_cv">CV</span></div>
+            <a href="blog.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="gallery.html" style="text-decoration: none; color: inherit;">
+                <i class="far fa-images"></i>
+            </a>
+            <a href="misc.html" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-cog"></i>
+            </a>
         </div>
 
         <div class="widget cv-container">
