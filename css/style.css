@@ -151,7 +151,7 @@ body {
     position: absolute; top: 54%; left: 50%;
     transform: translate(-50%, -50%) rotate(-5deg);
     height: 75vh; width: 75vh; max-width: 650px; max-height: 650px; 
-    background-image: url('/assets/chara01_full1.png');
+    background-image: url('../assets/chara01_full1.png');
     background-repeat: no-repeat; background-size: contain; background-position: center;
     border-radius: 20px; z-index: 3;
 }
